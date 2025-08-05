@@ -1,0 +1,65 @@
+<form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+
+    <label for="gender">Please select:</label>
+    <select formControlName="gender" id="gender">
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+    </select>
+
+    <input formControlName="firstName" placeholder="First Name">
+    <input formControlName="lastName" placeholder="Last Name">
+    <input formControlName="phone" placeholder="Phone">
+    <input formControlName="email" placeholder="Email">
+
+    <!-- Hebrew name and parents -->
+    <input formControlName="hebrewName" placeholder="Hebrew Name">
+    <input formControlName="fatherName" placeholder="Father's Name">
+    <input formControlName="motherName" placeholder="Mother's Name">
+    <select formControlName="bmParasha">
+        <option value="">Please Select</option>
+        @for (parasha of parashot; track parasha) {
+        <option [value]="parasha">{{ parasha }}</option>
+        }
+    </select>
+
+    <!-- DOB (nested group) -->
+    <div formGroupName="dob">
+        <!--     <input formControlName="day" placeholder="DOB Day">
+    <input formControlName="month" placeholder="DOB Month">
+    <input formControlName="engDate" type="date" placeholder="DOB Gregorian"> -->
+        <app-hdate></app-hdate>
+    </div>
+
+    <div formGroupName="dob">
+        <label>Date of birth:</label>
+        <app-hdate (hebrewDateChange)="onDobChange($event)"></app-hdate>
+    </div>
+
+
+    <div formGroupName="anniversary">
+        <label>Anniversary: (If applicable)</label>
+        <app-hdate (hebrewDateChange)="onDobChange($event)"></app-hdate>
+    </div>
+
+    <input formControlName="spouse" placeholder="Spouse's name">
+
+    <div formGroupName="aliya">
+        aliya
+        <app-hdate></app-hdate>
+    </div>
+
+    <div>
+        checkbox of second adult
+        if yes - controls in under relative
+    </div>
+
+    <div>yartzeits</div>
+
+
+
+
+
+    <!-- Add anniversary, aliya, spouse, etc. similarly -->
+
+    <button type="submit">Submit</button>
+</form>

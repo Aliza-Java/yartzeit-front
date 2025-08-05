@@ -1,0 +1,3 @@
+<input class="form-control" placeholder="yyyy-mm-dd" name="dp"
+       ngbDatepicker #d="ngbDatepicker" [minDate]="minDate" [maxDate]="maxDate" (dateSelect)="onDateSelect($event)">
+<button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
