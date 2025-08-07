@@ -45,12 +45,7 @@
         </div>
         <div class="form-row">
             <label class="form-label" for="bmParasha">Bar Mitzva Parasha:</label>
-            <select style="text-align: center;" formControlName="bmParasha">
-                <option disabled value="">Please Select</option>
-                @for (parasha of parashot; track parasha) {
-                <option [value]="parasha">{{ parasha }}</option>
-                }
-            </select>
+            <app-bm-select (parashaSelected)="onParashaSelected($event)"></app-bm-select>
         </div>
     </div>
 

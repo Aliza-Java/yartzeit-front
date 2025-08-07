@@ -5,12 +5,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Member } from '../../models/member.model';
 import { CommonModule } from '@angular/common';
 import { HdateComponent, HebrewDate } from "../hdate/hdate.component";
+import { BmSelectComponent } from "../bm-select/bm-select.component";
 
 
 @Component({
     selector: 'app-add-member',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, HdateComponent],
+    imports: [CommonModule, ReactiveFormsModule, HdateComponent, BmSelectComponent],
     templateUrl: './add-member.component.html',
     styleUrls: ['./add-member.component.css']
 })
@@ -20,78 +21,6 @@ export class AddMemberComponent {
 
     memberForm: FormGroup;
     //todo - make bmParasha a separate component
-    parashot: string[] = [
-        // בראשית
-        "בראשית",
-        "נח",
-        "לך לך",
-        "וירא",
-        "חיי שרה",
-        "תולדות",
-        "ויצא",
-        "וישלח",
-        "וישב",
-        "מקץ",
-        "ויגש",
-        "ויחי",
-
-        // שמות
-        "שמות",
-        "וארא",
-        "בא",
-        "בשלח",
-        "יתרו",
-        "משפטים",
-        "תרומה",
-        "תצוה",
-        "כי תשא",
-        "ויקהל",
-        "פקודי",
-        "ויקהל - פקודי",
-
-        // ויקרא
-        "ויקרא",
-        "צו",
-        "שמיני",
-        "תזריע",
-        "מצורע",
-        "תזריע - מצורע",
-        "אחרי מות",
-        "קדושים",
-        "אחרי מות - קדושים",
-        "אמור",
-        "בהר",
-        "בחוקותי",
-        "בהר - בחוקותי",
-
-        // במדבר
-        "במדבר",
-        "נשא",
-        "בהעלותך",
-        "שלח",
-        "קורח",
-        "חקת",
-        "בלק",
-        "פנחס",
-        "מטות",
-        "מסעי",
-        "מטות - מסעי",
-
-        // דברים
-        "דברים",
-        "ואתחנן",
-        "עקב",
-        "ראה",
-        "שופטים",
-        "כי תצא",
-        "כי תבוא",
-        "נצבים",
-        "וילך",
-        "נצבים - וילך",
-        "האזינו",
-        "וזאת הברכה"
-    ];
-
 
     constructor(private fb: FormBuilder, private httpService: HttpService) {
         this.memberForm = this.fb.group({
@@ -176,9 +105,12 @@ export class AddMemberComponent {
         });
     }
 
+    onParashaSelected(parasha: string) {
+        this.memberForm.patchValue({ bmParasha: parasha });
+    }
+
     onSubmit() {
         const member: Member = this.memberForm.value;
-        console.log('Submitting member:', member);
         this.httpService.saveMember(member).subscribe({
             next: (response) => {
                 console.log('Member saved successfully', response);
