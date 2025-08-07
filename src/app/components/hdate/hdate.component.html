@@ -1,3 +1,29 @@
-<input class="form-control" placeholder="yyyy-mm-dd" name="dp"
-       ngbDatepicker #d="ngbDatepicker" [minDate]="minDate" [maxDate]="maxDate" (dateSelect)="onDateSelect($event)">
-<button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
+<div class="d-flex align-items-center eng-date-section form-pair">
+    <input class="form-control eng-date" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" #dateInput
+        [minDate]="minDate" [maxDate]="maxDate" [firstDayOfWeek]="7"
+    (dateSelect)="onDatePick($event)" (keyup)="onDateType(dateInput.value)"/>
+    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
+</div>
+
+@if (checkDateAlert) {
+<div class="custom-alert" role="alert">
+    Is this the correct Hebrew date?
+</div>
+}
+
+<div class="d-flex date-section form-pair"> 
+    <select class="form-control select-narrow" [value]="hebrewDay">
+        <option disabled value="">Select Day</option>
+        @for (day of days; track day) {
+        <option [value]="day">{{ day }}</option>
+        }
+    </select>
+        <span class="separator">/</span>
+    <select class="form-control select-narrow" [value]="hebrewMonth">
+        <!-- (change)="onHebrewDayChange($event.target.value)"-->
+        <option disabled value="">Select Month</option>
+        @for (month of this.shulService.hebrewMonths; track month) {
+        <option [value]="month">{{ month }}</option>
+        }
+    </select>
+</div>

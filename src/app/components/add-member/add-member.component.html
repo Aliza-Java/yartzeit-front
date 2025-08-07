@@ -1,65 +1,87 @@
 <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
 
-    <label for="gender">Please select:</label>
-    <select formControlName="gender" id="gender">
-        <option value="MALE">Male</option>
-        <option value="FEMALE">Female</option>
-    </select>
+    <h3>Member Registration Form</h3>
+    <div class="section form-container">
+        <div class="form-row">
+            <label class="form-label" for="gender">Please select:</label>
+            <select formControlName="gender" id="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+        </div>
 
-    <input formControlName="firstName" placeholder="First Name">
-    <input formControlName="lastName" placeholder="Last Name">
-    <input formControlName="phone" placeholder="Phone">
-    <input formControlName="email" placeholder="Email">
-
-    <!-- Hebrew name and parents -->
-    <input formControlName="hebrewName" placeholder="Hebrew Name">
-    <input formControlName="fatherName" placeholder="Father's Name">
-    <input formControlName="motherName" placeholder="Mother's Name">
-    <select formControlName="bmParasha">
-        <option value="">Please Select</option>
-        @for (parasha of parashot; track parasha) {
-        <option [value]="parasha">{{ parasha }}</option>
-        }
-    </select>
-
-    <!-- DOB (nested group) -->
-    <div formGroupName="dob">
-        <!--     <input formControlName="day" placeholder="DOB Day">
-    <input formControlName="month" placeholder="DOB Month">
-    <input formControlName="engDate" type="date" placeholder="DOB Gregorian"> -->
-        <app-hdate></app-hdate>
+        <div class="form-row">
+            <label class="form-label" for="firstName">First Name:</label>
+            <input id="firstName" formControlName="firstName" placeholder="First Name">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="lastName">Last Name:</label>
+            <input id="lastName" formControlName="lastName" placeholder="Last Name">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="phone">Phone:</label>
+            <input id="phone" formControlName="phone" placeholder="Phone">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="email">Email:</label>
+            <input id="email" formControlName="email" placeholder="Email">
+        </div>
     </div>
 
-    <div formGroupName="dob">
+
+    <div class="section form-container">
+        <!-- Hebrew name and parents -->
+        <div class="form-row">
+            <label class="form-label" for="hebrewName">Hebrew Name:</label>
+            <input id="hebrewName" formControlName="hebrewName" placeholder="Hebrew Name">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="fatherName">Father's name:</label>
+            <input id="fatherName" formControlName="fatherName" placeholder="Father's Name">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="motherName">Mother's name:</label>
+            <input id="motherName" formControlName="motherName" placeholder="Mother's Name">
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="bmParasha">Bar Mitzva Parasha:</label>
+            <select style="text-align: center;" formControlName="bmParasha">
+                <option disabled value="">Please Select</option>
+                @for (parasha of parashot; track parasha) {
+                <option [value]="parasha">{{ parasha }}</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div formGroupName="dob" class="section date-section">
         <label>Date of birth:</label>
-        <app-hdate (hebrewDateChange)="onDobChange($event)"></app-hdate>
+        <app-hdate (dateChange)="onDobDateChange($event)" [hebrewDay]="dobDayValue" [hebrewMonth]="dobMonthValue">
+        </app-hdate>
     </div>
 
-
-    <div formGroupName="anniversary">
+    <div formGroupName="anniversary" class="section date-section">
         <label>Anniversary: (If applicable)</label>
-        <app-hdate (hebrewDateChange)="onDobChange($event)"></app-hdate>
+        <app-hdate (dateChange)="onAnniversaryDateChange($event)" [hebrewDay]="anniversaryDayValue" [hebrewMonth]="anniversaryMonthValue">
+        </app-hdate>
     </div>
 
     <input formControlName="spouse" placeholder="Spouse's name">
 
-    <div formGroupName="aliya">
-        aliya
-        <app-hdate></app-hdate>
+    <div formGroupName="aliya" class="section date-section">
+        Aliya: (If applicable)
+         <app-hdate (dateChange)="onAliyaDateChange($event)" [hebrewDay]="aliyaDayValue" [hebrewMonth]="aliyaMonthValue">
+        </app-hdate>
     </div>
 
-    <div>
+    <div class="section">
         checkbox of second adult
         if yes - controls in under relative
     </div>
 
-    <div>yartzeits</div>
-
-
-
-
-
-    <!-- Add anniversary, aliya, spouse, etc. similarly -->
+    <div class="section">
+        yartzeits
+    </div>
 
     <button type="submit">Submit</button>
 </form>

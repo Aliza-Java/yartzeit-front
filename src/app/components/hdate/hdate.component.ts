@@ -1,52 +1,80 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { HDate } from 'hebcal';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShulService } from '../../services/shul.service';
 
 export interface HebrewDate {
-  day: number;
-  month: number;
-  engDate: Date;
+    day: number;
+    month: string;
+    engDate: Date;
 }
 
 @Component({
-  selector: 'app-hdate',
-  templateUrl: './hdate.component.html',
-  standalone: true,
-  imports: [NgbDatepickerModule]
+    selector: 'app-hdate',
+    templateUrl: './hdate.component.html',
+    styleUrls: ['./hdate.component.css'],
+    standalone: true,
+    imports: [NgbDatepickerModule]
 })
 export class HdateComponent {
-  @Output() hebrewDateChange = new EventEmitter<HebrewDate>();
+    @Output() dateChange = new EventEmitter<HebrewDate>();
+
+    @Input() hebrewDay!: number;
+    @Input() hebrewMonth!: number;
+
     minDate: { year: number; month: number; day: number; };
     maxDate: { year: number; month: number; day: number; };
 
-constructor() {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+    checkDateAlert = false;
 
-    this.minDate = {
-      year: currentYear - 100,
-      month: 1,
-      day: 1
-    };
+    days: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
 
-    this.maxDate = {
-      year: currentYear,
-      month: currentDate.getMonth() + 1,
-      day: currentDate.getDate()
-    };
-  }
+    constructor(public shulService: ShulService) {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
 
-  onDateSelect(date: NgbDate) {
-    const jsDate = new Date(date.year, date.month - 1, date.day);
-    const hDate = new HDate(jsDate);
+        this.minDate = {
+            year: currentYear - 100,
+            month: 1,
+            day: 1
+        };
 
-    const myDate: HebrewDate = {
-      day: hDate.getDate(),
-      month: hDate.getMonth(),
-      engDate: jsDate
-    };
+        this.maxDate = {
+            year: currentYear,
+            month: currentDate.getMonth() + 1,
+            day: currentDate.getDate()
+        };
+    }
 
-    this.hebrewDateChange.emit(myDate);
-  }
-}
+    onDatePick(date: NgbDate) {
+        this.calculateHebrew(new Date(date.year, date.month - 1, date.day));
+    }
+
+    onDateType(dateString: string) {
+        const datePattern = /^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+        if (datePattern.test(dateString)) {
+            const dateParts = dateString.split('-');
+
+            const year = parseInt(dateParts[0], 10);
+            const month = parseInt(dateParts[1], 10) - 1; // JS months are 0-based
+            const day = parseInt(dateParts[2], 10);
+
+            this.calculateHebrew(new Date(year, month, day));
+        }
+    }
+
+    calculateHebrew(jsDate: Date) {
+        const hDate = new HDate(jsDate);
+
+        const hebrewDate: HebrewDate = {
+            day: hDate.getDate(),
+            month: hDate.getMonthName(),
+            engDate: jsDate
+        };
+
+        this.checkDateAlert = true;
+        this.dateChange.emit(hebrewDate);
+    }
+}    
