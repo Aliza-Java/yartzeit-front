@@ -3,11 +3,12 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { HDate } from 'hebcal';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShulService } from '../../services/shul.service';
+import { Hdate } from '../../models/hdate.model';
 
 export interface HebrewDate {
     day: number;
     month: string;
-    engDate: Date;
+    engDate: Date | string; // ISO format "YYYY-MM-DD"
 }
 
 @Component({
@@ -18,10 +19,10 @@ export interface HebrewDate {
     imports: [NgbDatepickerModule]
 })
 export class HdateComponent {
-    @Output() dateChange = new EventEmitter<HebrewDate>();
+    @Output() dateChange = new EventEmitter<Hdate>();
 
-    @Input() hebrewDay!: number;
-    @Input() hebrewMonth!: number;
+    @Input() hebrewDay: number | null = null;
+    @Input() hebrewMonth: number | null = null;
 
     minDate: { year: number; month: number; day: number; };
     maxDate: { year: number; month: number; day: number; };
@@ -68,10 +69,14 @@ export class HdateComponent {
     calculateHebrew(jsDate: Date) {
         const hDate = new HDate(jsDate);
 
-        const hebrewDate: HebrewDate = {
+        const tmp = new Date(jsDate);
+        tmp.setHours(12, 0, 0, 0); // noon local time, to avoid time-difference issues
+        const engDateString = tmp.toISOString().split('T')[0];
+
+        const hebrewDate: Hdate = {
             day: hDate.getDate(),
             month: hDate.getMonthName(),
-            engDate: jsDate
+            engDate: engDateString // "2025-08-08"
         };
 
         this.checkDateAlert = true;

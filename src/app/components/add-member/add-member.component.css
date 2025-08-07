@@ -1,7 +1,7 @@
 h3 {
     display: flex;
-    justify-content: center;   
-    margin-top: 30px; 
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .date-section {
@@ -26,18 +26,39 @@ input, select {
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* space between rows */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* space between rows */
 }
 
 .form-row {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* space between label and input */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* space between label and input */
 }
 
 .form-label {
-  width: 150px; /* fixed width for label for alignment */
-  font-weight: 600; /* optional, makes label a bit bolder */
+    width: 150px;
+    /* fixed width for label for alignment */
+    font-weight: 600;
+    /* optional, makes label a bit bolder */
+}
+
+.relative-section {
+    background-color: bisque;
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+#relativeCheckbox {
+    margin-right: 10px;
+}
+
+button {
+    width: 150px;
+    margin-top: 20px;
+    align-self: center;
+    margin-bottom: 50px;
 }

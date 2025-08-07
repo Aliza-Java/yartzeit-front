@@ -4,8 +4,9 @@ import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Member } from '../../models/member.model';
 import { CommonModule } from '@angular/common';
-import { HdateComponent, HebrewDate } from "../hdate/hdate.component";
+import { HdateComponent } from "../hdate/hdate.component";
 import { BmSelectComponent } from "../bm-select/bm-select.component";
+import { Hdate } from '../../models/hdate.model';
 
 
 @Component({
@@ -17,10 +18,9 @@ import { BmSelectComponent } from "../bm-select/bm-select.component";
 })
 export class AddMemberComponent {
 
-    hebrewDate = signal<HebrewDate | null>(null);
+    thereIsSecondAdult = signal(false);
 
     memberForm: FormGroup;
-    //todo - make bmParasha a separate component
 
     constructor(private fb: FormBuilder, private httpService: HttpService) {
         this.memberForm = this.fb.group({
@@ -60,22 +60,22 @@ export class AddMemberComponent {
                 fatherName: [''],
                 motherName: [''],
                 dob: this.fb.group({
-                    day: [''],
-                    month: [''],
-                    engDate: ['']
+                    day: new FormControl(null),
+                month: new FormControl(null),
+                engDate: new FormControl(null)
                 }),
                 bmParasha: [''],
                 aliya: this.fb.group({
-                    day: [''],
-                    month: [''],
-                    engDate: ['']
+                   day: new FormControl(null),
+                month: new FormControl(null),
+                engDate: new FormControl(null)
                 }),
-            }), //In form says second adult
+            }), //In the form it says second adult
             yartzeits: [[]] // Start with empty list
         });
     }
 
-    onDobDateChange(hebrewDate: HebrewDate) {
+    onDobDateChange(hebrewDate: Hdate) {
         this.memberForm.patchValue({
             dob: {
                 day: hebrewDate.day,
@@ -85,7 +85,19 @@ export class AddMemberComponent {
         });
     }
 
-    onAnniversaryDateChange(hebrewDate: HebrewDate) {
+    onDobDateRelativeChange(hebrewDate: Hdate) {
+        this.memberForm.patchValue({
+            relative: {
+                dob: {
+                    day: hebrewDate.day,
+                    month: hebrewDate.month,
+                    engDate: hebrewDate.engDate
+                }
+            }
+        });
+    }
+
+    onAnniversaryDateChange(hebrewDate: Hdate) {
         this.memberForm.patchValue({
             anniversary: {
                 day: hebrewDate.day,
@@ -95,7 +107,7 @@ export class AddMemberComponent {
         });
     }
 
-    onAliyaDateChange(hebrewDate: HebrewDate) {
+    onAliyaDateChange(hebrewDate: Hdate) {
         this.memberForm.patchValue({
             aliya: {
                 day: hebrewDate.day,
@@ -105,12 +117,45 @@ export class AddMemberComponent {
         });
     }
 
+    onAliyaDateRelativeChange(hebrewDate: Hdate) {
+        this.memberForm.patchValue({
+            relative: {
+                aliya: {
+                    day: hebrewDate.day,
+                    month: hebrewDate.month,
+                    engDate: hebrewDate.engDate
+                }
+            }
+        });
+    }
+
     onParashaSelected(parasha: string) {
         this.memberForm.patchValue({ bmParasha: parasha });
     }
 
+    onParashaRelativeSelected(parasha: string) {
+        this.memberForm.patchValue({ relative: { bmParasha: parasha } });
+    }
+
+    onToggleRelative() {
+        this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
+    }
+
     onSubmit() {
         const member: Member = this.memberForm.value;
+
+        //clear form details so they match hiding conditions
+       
+        if (member.gender == 'FEMALE') {
+            member.bmParasha = '';
+        }
+        if (member.relative && member.relative.gender == 'FEMALE') {
+            member.relative.bmParasha = ''; 
+        }
+         if (!this.thereIsSecondAdult()) {
+            member.relative = null;
+        }
+
         this.httpService.saveMember(member).subscribe({
             next: (response) => {
                 console.log('Member saved successfully', response);
@@ -122,26 +167,42 @@ export class AddMemberComponent {
     }
 
     get dobDayValue() {
-        return this.memberForm.get('dob.day')?.value || 1;
+        return this.memberForm.get('dob.day')?.value || '';
     }
 
     get dobMonthValue() {
-        return this.memberForm.get('dob.month')?.value || 'Tishrei';
+        return this.memberForm.get('dob.month')?.value || '';
+    }
+
+    get dobDayRelValue() {
+        return this.memberForm.get('relative.dob.day')?.value || '';
+    }
+
+    get dobMonthRelValue() {
+        return this.memberForm.get('relative.dob.month')?.value || '';
     }
 
     get anniversaryDayValue() {
-        return this.memberForm.get('anniversary.day')?.value || 1;
+        return this.memberForm.get('anniversary.day')?.value || '';
     }
 
     get anniversaryMonthValue() {
-        return this.memberForm.get('anniversary.month')?.value || 'Tishrei';
+        return this.memberForm.get('anniversary.month')?.value || '';
     }
 
     get aliyaDayValue() {
-        return this.memberForm.get('aliya.day')?.value || 1;
+        return this.memberForm.get('aliya.day')?.value || '';
     }
 
     get aliyaMonthValue() {
-        return this.memberForm.get('aliya.month')?.value || 'Tishrei';
+        return this.memberForm.get('aliya.month')?.value || '';
+    }
+
+     get aliyaDayRelValue() {
+        return this.memberForm.get('relative.aliya.day')?.value || '';
+    }
+
+    get aliyaMonthRelValue() {
+        return this.memberForm.get('relative.aliya.month')?.value || '';
     }
 }
