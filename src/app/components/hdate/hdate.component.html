@@ -20,7 +20,6 @@
     </select>
         <span class="separator">/</span>
     <select class="form-control select-narrow" [value]="hebrewMonth">
-        <!-- (change)="onHebrewDayChange($event.target.value)"-->
         <option disabled value="">Select Month</option>
         @for (month of this.shulService.hebrewMonths; track month) {
         <option [value]="month">{{ month }}</option>

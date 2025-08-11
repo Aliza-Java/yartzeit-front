@@ -1,0 +1,8 @@
+.section {
+    margin-top: 25px
+}
+
+.form-label {
+    width: 120px !important;
+    font-weight: 600;
+}

@@ -1,18 +1,8 @@
-.select-narrow {
-  max-width: 200px;
-  width: auto;
-  flex: 0 0 auto; /* prevent it from growing */
-}
-
 select {
     text-align: center;
     font-weight: bold;
 }
 
-.custom-alert{
-    color: red;
-    font-weight: bold;
-}
 
 .eng-date{
     width: fit-content;
@@ -22,11 +12,11 @@ select {
 .date-section {
     margin-top: 10px;
     max-width: 250px;
-    gap: 10px;
 }
 
 .form-pair {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 20px;
   width: 250px; /* or set a fixed width like 420px if you prefer */

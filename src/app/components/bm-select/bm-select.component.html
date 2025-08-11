@@ -1,5 +1,6 @@
 <select class="form-control select-narrow" (change)="onSelectParasha($event)">
     <option disabled value="">Select an option</option>
     @for (parasha of parashot; track parasha) {
-        <option [value]="parasha">{{ parasha }}</option>
+    <option [value]="parasha">{{ parasha }}</option>
     }
+</select>

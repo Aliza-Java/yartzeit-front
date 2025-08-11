@@ -76,7 +76,7 @@ export class HdateComponent {
         const hebrewDate: Hdate = {
             day: hDate.getDate(),
             month: hDate.getMonthName(),
-            engDate: engDateString // "2025-08-08"
+            engDate: engDateString 
         };
 
         this.checkDateAlert = true;
