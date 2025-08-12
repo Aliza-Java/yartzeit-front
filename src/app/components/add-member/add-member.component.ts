@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -25,7 +26,7 @@ export class AddMemberComponent {
     yartzeits: Yartzeit[] = [];
     addingYartzeit: boolean = true;
 
-    constructor(private fb: FormBuilder, private httpService: HttpService) {
+    constructor(private fb: FormBuilder, private httpService: HttpService, private router: Router) {
         this.memberForm = this.fb.group({
             gender: ['MALE'],
             firstName: [''],
@@ -78,19 +79,19 @@ export class AddMemberComponent {
         });
     }
 
-    addYartzeit(){
+    addYartzeit() {
         this.addingYartzeit = true;
     }
 
-    
-    
+
+
     onYartzeitAdded(y: Yartzeit) {
         this.yartzeits.push(y);
         this.addingYartzeit = false;
     }
 
     removeYartzeit(y: Yartzeit) {
-    this.yartzeits = this.yartzeits.filter(item => item !== y);
+        this.yartzeits = this.yartzeits.filter(item => item !== y);
     }
 
     onDobDateChange(hebrewDate: Hdate) {
@@ -177,6 +178,8 @@ export class AddMemberComponent {
         this.httpService.saveMember(member).subscribe({
             next: (response) => {
                 console.log('Member saved successfully', response);
+                this.router.navigate(['/success']);
+
             },
             error: (err) => {
                 console.error('Error saving member', err);
