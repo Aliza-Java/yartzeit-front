@@ -10,6 +10,7 @@ import { BmSelectComponent } from "../bm-select/bm-select.component";
 import { Hdate } from '../../models/hdate.model';
 import { Yartzeit } from '../../models/yartzeit.model';
 import { YartzeitComponent } from '../yartzeit/yartzeit.component';
+import { finalize } from 'rxjs';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { YartzeitComponent } from '../yartzeit/yartzeit.component';
 })
 export class AddMemberComponent {
     thereIsSecondAdult = signal(false);
+    isLoading = signal(false);
 
     memberForm: FormGroup;
     yartzeits: Yartzeit[] = [];
@@ -161,6 +163,8 @@ export class AddMemberComponent {
     }
 
     onSubmit() {
+        this.isLoading.set(true);
+
         const member: Member = this.memberForm.value;
         member.yartzeits = this.yartzeits;
 
@@ -175,16 +179,19 @@ export class AddMemberComponent {
             member.relative = null;
         }
 
-        this.httpService.saveMember(member).subscribe({
-            next: (response) => {
-                console.log('Member saved successfully', response);
-                this.router.navigate(['/success']);
+        this.httpService.saveMember(member)
+            .pipe(finalize(() => this.isLoading.set(false))) // Always runs after completion or error
+            .subscribe({
+                next: (response) => {
+                    console.log('Member saved successfully', response);
+                    this.router.navigate(['/success']);
 
-            },
-            error: (err) => {
-                console.error('Error saving member', err);
-            }
-        });
+                },
+                error: (err) => {
+                    console.error('Error saving member', err);
+                    this.router.navigate(['/error']);
+                }
+            });
     }
 
     get dobDayValue() {

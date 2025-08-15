@@ -1,11 +1,15 @@
-<div class="container">
+<div *ngIf="isLoading()" class="loading-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-12 text-center">
             <img src="assets/logo.jpeg" alt="Logo" class="form-logo">
         </div>
     </div>
-
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
