@@ -98,3 +98,17 @@ app-yartzeit {
     font-size: 1rem;
     /* normal text size */
 }
+
+.form-logo {
+    max-width: 300px;       /* default size for desktop */
+    width: 100%;            /* allow shrinking */
+    height: auto;           /* keep aspect ratio */
+    margin: 20px 0;
+}
+
+@media (max-width: 576px) { /* small screens (Bootstrap sm breakpoint) */
+    .form-logo {
+        max-width: 150px;   /* smaller logo on phones */
+        margin: 15px 0;
+    }
+}

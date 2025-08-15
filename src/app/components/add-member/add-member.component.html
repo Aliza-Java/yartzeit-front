@@ -1,4 +1,11 @@
 <div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <img src="assets/logo.jpeg" alt="Logo" class="form-logo">
+        </div>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
@@ -138,7 +145,7 @@
                     <div class="section form-container">
                         <div class="form-row">
                             <label class="form-label" for="gender">Please select:</label>
-                            <select formControlName="gender" id="gender">
+                            <select class="form-control" formControlName="gender" id="gender">
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                             </select>
