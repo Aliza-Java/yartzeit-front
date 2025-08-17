@@ -15,4 +15,8 @@ export class HttpService {
   saveMember(member: any): Observable<any> {
     return this.http.post(this.baseUrl, member);
   }
+
+  getMembers(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
 }
