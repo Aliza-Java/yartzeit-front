@@ -1,7 +1,7 @@
 <div *ngIf="isLoading()" class="loading-overlay">
-  <div class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
 </div>
 
 <div class="container">
@@ -88,7 +88,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let y of yartzeits; let i = index">
-                            <td>{{ y.hName }}</td>
+                            <td>{{ y.name }}</td>
                             <td>{{ y.date.day }}/{{ y.date.month }}</td>
                             <td>{{ y.relationship }}</td>
                             <td> <!--todo: add edit button-->
@@ -106,8 +106,8 @@
 
                 <div formGroupName="dob" class="section date-section text-center">
                     <label>Date of birth:</label>
-                    <app-hdate (dateChange)="onDobDateChange($event)" [hebrewDay]="dobDayValue"
-                        [hebrewMonth]="dobMonthValue">
+                    <app-hdate (dateChange)="onDobDateChange($event)" [day]="memberForm.get('dob.day')?.value"
+                        [month]="memberForm.get('dob.month')?.value" [engDate]="memberForm.get('dob.engDate')?.value">
                     </app-hdate>
 
                     @if (memberForm.get('gender')?.value == 'MALE') {
@@ -121,8 +121,8 @@
 
                 <div formGroupName="anniversary" class="section date-section text-center">
                     <label>Anniversary: (If applicable)</label>
-                    <app-hdate (dateChange)="onAnniversaryDateChange($event)" [hebrewDay]="anniversaryDayValue"
-                        [hebrewMonth]="anniversaryMonthValue">
+                    <app-hdate (dateChange)="onAnniversaryDateChange($event)" [day]="anniversaryDayValue"
+                        [month]="anniversaryMonthValue" [engDate]="anniversaryEngDateValue">
                     </app-hdate>
                 </div>
 
@@ -131,8 +131,8 @@
 
                 <div formGroupName="aliya" class="section date-section text-center">
                     Aliya: (If applicable)
-                    <app-hdate (dateChange)="onAliyaDateChange($event)" [hebrewDay]="aliyaDayValue"
-                        [hebrewMonth]="aliyaMonthValue">
+                    <app-hdate (dateChange)="onAliyaDateChange($event)" [day]="aliyaDayValue"
+                        [month]="aliyaMonthValue" [engDate]="aliyaEngDateValue">
                     </app-hdate>
                 </div>
 
@@ -196,8 +196,8 @@
 
                     <div formGroupName="dob" class="section date-section">
                         <label>Date of birth:</label>
-                        <app-hdate (dateChange)="onDobDateRelativeChange($event)" [hebrewDay]="dobDayRelValue"
-                            [hebrewMonth]="dobMonthRelValue">
+                        <app-hdate (dateChange)="onDobDateRelativeChange($event)" [day]="dobDayRelValue"
+                            [month]="dobMonthRelValue" [engDate]="dobEngDateRelValue">
                         </app-hdate>
 
                         @if (memberForm.get('relative.gender')?.value == 'MALE') {
@@ -210,8 +210,8 @@
 
                     <div formGroupName="aliya" class="section date-section">
                         Aliya: (If applicable)
-                        <app-hdate (dateChange)="onAliyaDateRelativeChange($event)" [hebrewDay]="aliyaDayRelValue"
-                            [hebrewMonth]="aliyaMonthRelValue">
+                        <app-hdate (dateChange)="onAliyaDateRelativeChange($event)" [day]="aliyaDayRelValue"
+                            [month]="aliyaMonthRelValue" [engDate]="aliyaEngDateRelValue">
                         </app-hdate>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                 <button type="submit" class="btn custom-btn d-flex align-items-center text-center"
                     (click)="addYartzeit()">
                     <i class="bi bi-send me-2" width="20" height="20" fill="green"></i>
-                    Submit
+                    {{isEdit ? 'Save Changes' : 'Add Member'}}
                 </button>
 
             </form>

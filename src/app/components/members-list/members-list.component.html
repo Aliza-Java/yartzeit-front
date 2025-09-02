@@ -1,20 +1,21 @@
 <h2>Members List</h2>
 
 <table>
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let member of members">
-      <td data-label="First Name">{{ member.firstName }}</td>
-      <td data-label="Last Name">{{ member.lastName }}</td>
-      <td data-label="Email">{{ member.email }}</td>
-      <td data-label="Phone">{{ member.phone }}</td>
-    </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let member of members" (click)="editMember(member)">
+            <td data-label="First Name">{{ member.firstName }}</td>
+            <td data-label="Last Name">{{ member.lastName }}</td>
+            <td data-label="Email">{{ member.email }}</td>
+            <td data-label="Phone">{{ member.phone }}</td>
+        </tr>
+    </tbody>
 </table>

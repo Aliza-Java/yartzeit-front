@@ -1,28 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { HDate } from 'hebcal';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShulService } from '../../services/shul.service';
 import { Hdate } from '../../models/hdate.model';
-
-export interface HebrewDate {
-    day: number;
-    month: string;
-    engDate: Date | string; // ISO format "YYYY-MM-DD"
-}
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-hdate',
     templateUrl: './hdate.component.html',
     styleUrls: ['./hdate.component.css'],
     standalone: true,
-    imports: [NgbDatepickerModule]
+    imports: [NgbDatepickerModule, FormsModule]
 })
 export class HdateComponent {
     @Output() dateChange = new EventEmitter<Hdate>();
 
-    @Input() hebrewDay: number | null = null;
-    @Input() hebrewMonth: number | null = null;
+    @Input() day: number | null = null;
+    @Input() month: string | "" = "";
+    @Input() engDate: string | Date = "";
 
     minDate: { year: number; month: number; day: number; };
     maxDate: { year: number; month: number; day: number; };
@@ -72,14 +68,16 @@ export class HdateComponent {
         const tmp = new Date(jsDate);
         tmp.setHours(12, 0, 0, 0); // noon local time, to avoid time-difference issues
         const engDateString = tmp.toISOString().split('T')[0];
+        this.engDate = engDateString;
 
         const hebrewDate: Hdate = {
             day: hDate.getDate(),
             month: hDate.getMonthName(),
-            engDate: engDateString 
+            engDate: engDateString
         };
 
         this.checkDateAlert = true;
+        console.log('Hebrew date calculated:', hebrewDate);
         this.dateChange.emit(hebrewDate);
     }
 }    

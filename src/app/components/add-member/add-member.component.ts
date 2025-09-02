@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, inject, Input, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -11,6 +11,7 @@ import { Hdate } from '../../models/hdate.model';
 import { Yartzeit } from '../../models/yartzeit.model';
 import { YartzeitComponent } from '../yartzeit/yartzeit.component';
 import { finalize } from 'rxjs';
+import { ShulService } from '../../services/shul.service';
 
 
 @Component({
@@ -20,15 +21,34 @@ import { finalize } from 'rxjs';
     templateUrl: './add-member.component.html',
     styleUrls: ['./add-member.component.css']
 })
-export class AddMemberComponent {
+export class AddMemberComponent implements OnInit {
+
+    @Input() member?: Member;
+
+    isEdit: boolean = false;
     thereIsSecondAdult = signal(false);
     isLoading = signal(false);
 
-    memberForm: FormGroup;
+    memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
     addingYartzeit: boolean = true;
 
-    constructor(private fb: FormBuilder, private httpService: HttpService, private router: Router) {
+    private fb = inject(FormBuilder);
+    private httpService = inject(HttpService);
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+    private shulService = inject(ShulService);
+
+    constructor(private cdr: ChangeDetectorRef) {}  
+
+    ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            this.isEdit = (params['edit'] === 'true');
+            if (this.isEdit) {
+                this.addingYartzeit = false; //start with showing yartzeits, can add more
+            }
+        });
+
         this.memberForm = this.fb.group({
             gender: ['MALE'],
             firstName: [''],
@@ -41,19 +61,19 @@ export class AddMemberComponent {
             bmParasha: [''],
 
             dob: this.fb.group({
-                day: new FormControl(null),
-                month: new FormControl(null),
+                day: new FormControl(0),
+                month: new FormControl(""),
                 engDate: new FormControl(null)
             }),
             anniversary: this.fb.group({
-                day: new FormControl(null),
-                month: new FormControl(null),
+                day: new FormControl(0),
+                month: new FormControl(""),
                 engDate: new FormControl(null)
             }),
             spouse: [''],
             aliya: this.fb.group({
-                day: new FormControl(null),
-                month: new FormControl(null),
+                day: new FormControl(0),
+                month: new FormControl(""),
                 engDate: new FormControl(null)
             }),
             relative: this.fb.group({
@@ -66,26 +86,36 @@ export class AddMemberComponent {
                 fatherName: [''],
                 motherName: [''],
                 dob: this.fb.group({
-                    day: new FormControl(null),
-                    month: new FormControl(null),
+                    day: new FormControl(0),
+                    month: new FormControl(""),
                     engDate: new FormControl(null)
                 }),
                 bmParasha: [''],
                 aliya: this.fb.group({
-                    day: new FormControl(null),
-                    month: new FormControl(null),
+                    day: new FormControl(0),
+                    month: new FormControl(""),
                     engDate: new FormControl(null)
                 }),
             }), //In the form it says second adult
             yartzeits: [[]] // Start with empty list
         });
+
+        const member = this.shulService.selectedMember();
+        if (member) {
+            this.memberForm.patchValue(member);
+            this.yartzeits = member.yartzeits || [];
+            if (member.relative) {
+                this.thereIsSecondAdult.set(true);
+            }
+        }
+        console.log(this.yartzeits);
+          this.cdr.detectChanges();
+
     }
 
     addYartzeit() {
         this.addingYartzeit = true;
     }
-
-
 
     onYartzeitAdded(y: Yartzeit) {
         this.yartzeits.push(y);
@@ -179,16 +209,16 @@ export class AddMemberComponent {
             member.relative = null;
         }
 
-        this.httpService.saveMember(member)
+        this.httpService.saveMember(member, this.isEdit)
             .pipe(finalize(() => this.isLoading.set(false))) // Always runs after completion or error
             .subscribe({
                 next: (response) => {
-                    console.log('Member saved successfully', response);
+                    console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
                     this.router.navigate(['/success']);
 
                 },
                 error: (err) => {
-                    console.error('Error saving member', err);
+                    console.error(this.isEdit ? 'Error editing member' : 'Error adding member', err);
                     this.router.navigate(['/error']);
                 }
             });
@@ -202,12 +232,20 @@ export class AddMemberComponent {
         return this.memberForm.get('dob.month')?.value || '';
     }
 
+    get dobEngDateValue() {
+        return this.memberForm.get('dob.engDate')?.value || '';
+    }
+
     get dobDayRelValue() {
         return this.memberForm.get('relative.dob.day')?.value || '';
     }
 
     get dobMonthRelValue() {
         return this.memberForm.get('relative.dob.month')?.value || '';
+    }
+
+    get dobEngDateRelValue() {
+        return this.memberForm.get('relative.dob.engDate')?.value || '';
     }
 
     get anniversaryDayValue() {
@@ -218,6 +256,10 @@ export class AddMemberComponent {
         return this.memberForm.get('anniversary.month')?.value || '';
     }
 
+     get anniversaryEngDateValue() {
+        return this.memberForm.get('anniversary.engDate')?.value || '';
+    }
+
     get aliyaDayValue() {
         return this.memberForm.get('aliya.day')?.value || '';
     }
@@ -226,11 +268,19 @@ export class AddMemberComponent {
         return this.memberForm.get('aliya.month')?.value || '';
     }
 
+    get aliyaEngDateValue() {
+        return this.memberForm.get('aliya.engDate')?.value || '';
+    }
+
     get aliyaDayRelValue() {
         return this.memberForm.get('relative.aliya.day')?.value || '';
     }
 
     get aliyaMonthRelValue() {
         return this.memberForm.get('relative.aliya.month')?.value || '';
+    }
+
+    get aliyaEngDateRelValue() {
+        return this.memberForm.get('relative.aliya.engDate')?.value || '';
     }
 }

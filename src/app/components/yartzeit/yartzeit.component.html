@@ -17,7 +17,7 @@
 <div class="d-flex flex-column">
     <div class="section date-section me-3 mb-3 mb-md-0 flex-row">
         <label class="form-label">Date of passing: </label>
-        <app-hdate [hebrewDay]="hDate.day" [hebrewMonth]="hDate.month" (dateChange)="updateDate($event)">
+        <app-hdate [day]="hDate.day" [month]="hDate.month" [engDate]="hDate.month" (dateChange)="updateDate($event)">
         </app-hdate>
     </div>
 
@@ -25,7 +25,7 @@
         <label class="form-label" for="otherRelationship">Relationship:</label>
 
         <select class="form-control select-narrow me-3" [(ngModel)]="relationship">
-            <option value="">Select Relationship</option>
+            <option disabled value="">Select Relationship</option>
             <option value="father">Father</option>
             <option value="mother">Mother</option>
             <option value="grandfather">Grandfather</option>

@@ -38,7 +38,7 @@ export class YartzeitComponent {
             const yartzeit: Yartzeit = {
                 id: 0, // Assuming ID is auto-generated
                 date: this.hDate,
-                hName: `${this.name1} ${this.benbat} ${this.name2}`,
+                name: `${this.name1} ${this.benbat} ${this.name2}`,
                 relationship: this.relationship === 'other' ? this.otherRelationship : this.relationship
             };
 

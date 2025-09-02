@@ -3,20 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class HttpService {
-  //private baseUrl = 'http://localhost:8080/shul/member'; // local
-  //private baseUrl = 'https://ec2-13-60-6-160.eu-north-1.compute.amazonaws.com/shul/member'; // production
-  private baseUrl = 'https://api.elcmembers.online/shul/member'; // production
+    private baseUrl = 'http://localhost:8080/shul/member'; // local
+    //private baseUrl = 'https://ec2-13-60-6-160.eu-north-1.compute.amazonaws.com/shul/member'; // production
+    //private baseUrl = 'https://api.elcmembers.online/shul/member'; // production
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-  saveMember(member: any): Observable<any> {
-    return this.http.post(this.baseUrl, member);
-  }
+    saveMember(member: any, editing: boolean): Observable<any> {
+        if (editing)
+            return this.http.put(`${this.baseUrl}`, member, { withCredentials: true });
+        else
+            return this.http.post(`${this.baseUrl}`, member, { withCredentials: true });
+    }
 
-  getMembers(): Observable<any> {
-    return this.http.get(this.baseUrl);
-  }
+    getMembers(): Observable<any> {
+        return this.http.get(this.baseUrl);
+    }
 }
