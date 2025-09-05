@@ -39,7 +39,7 @@ export class AddMemberComponent implements OnInit {
     private route = inject(ActivatedRoute);
     private shulService = inject(ShulService);
 
-    constructor(private cdr: ChangeDetectorRef) {}  
+    constructor(private cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
@@ -109,8 +109,9 @@ export class AddMemberComponent implements OnInit {
             }
         }
         console.log(this.yartzeits);
-          this.cdr.detectChanges();
 
+        //detectChanges() might be necessary for child components to update upon recieving edited member's details
+        this.cdr.detectChanges(); 
     }
 
     addYartzeit() {
@@ -188,7 +189,7 @@ export class AddMemberComponent implements OnInit {
         this.memberForm.patchValue({ relative: { bmParasha: parasha } });
     }
 
-    onToggleRelative() {
+    toggleRelative() {
         this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
     }
 
@@ -256,7 +257,7 @@ export class AddMemberComponent implements OnInit {
         return this.memberForm.get('anniversary.month')?.value || '';
     }
 
-     get anniversaryEngDateValue() {
+    get anniversaryEngDateValue() {
         return this.memberForm.get('anniversary.engDate')?.value || '';
     }
 

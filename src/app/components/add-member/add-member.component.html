@@ -113,7 +113,7 @@
                     @if (memberForm.get('gender')?.value == 'MALE') {
                     <div class="form-row">
                         <label class="form-label" for="bmParasha" style="width: auto">Bar Mitzva Parasha:</label>
-                        <app-bm-select (parashaSelected)="onParashaSelected($event)"></app-bm-select>
+                        <app-bm-select [selected]="memberForm.get('bmParasha')?.value" (parashaSelected)="onParashaSelected($event)"></app-bm-select>
                     </div>
                     }
 
@@ -139,7 +139,7 @@
                 <hr>
 
                 <div formGroupName="relative" class="relative-heading-container d-flex align-items-center">
-                    <input type="checkbox" (change)="onToggleRelative()" id="relativeCheckbox">
+                    <input type="checkbox" [checked]="thereIsSecondAdult()" (change)="toggleRelative()" id="relativeCheckbox">
                     <label for="relativeCheckbox" class="ms-2" style="font-size: 1.5rem;">Add a second adult</label>
                 </div>
 
@@ -203,7 +203,7 @@
                         @if (memberForm.get('relative.gender')?.value == 'MALE') {
                         <div class="form-row">
                             <label class="form-label" for="bmParasha" style="width: auto">Bar Mitzva Parasha:</label>
-                            <app-bm-select (parashaSelected)="onParashaRelativeSelected($event)"></app-bm-select>
+                            <app-bm-select [selected]="memberForm.get('relative.bmParasha')?.value" (parashaSelected)="onParashaRelativeSelected($event)"></app-bm-select>
                         </div>
                         }
                     </div>

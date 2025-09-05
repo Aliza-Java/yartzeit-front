@@ -1,37 +1,27 @@
-import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-bm-select',
-  standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BmSelectComponent),
-      multi: true
-    }
-  ],
-  imports: [],
-  templateUrl: './bm-select.component.html',
-  styleUrl: './bm-select.component.css'
+    selector: 'app-bm-select',
+    standalone: true,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => BmSelectComponent),
+            multi: true
+        }
+    ],
+    imports: [FormsModule],
+    templateUrl: './bm-select.component.html',
+    styleUrl: './bm-select.component.css'
 })
 export class BmSelectComponent implements ControlValueAccessor {
-    writeValue(obj: any): void {
-        throw new Error('Method not implemented.');
-    }
-    registerOnChange(fn: any): void {
-        throw new Error('Method not implemented.');
-    }
-    registerOnTouched(fn: any): void {
-        throw new Error('Method not implemented.');
-    }
-    setDisabledState?(isDisabled: boolean): void {
-        throw new Error('Method not implemented.');
-    }
+    @Input() selected: string = '';
 
-@Output() parashaSelected = new EventEmitter<string>();
 
-parashot: string[] = [
+    @Output() parashaSelected = new EventEmitter<string>();
+
+    parashot: string[] = [
         // בראשית
         "בראשית",
         "נח",
@@ -107,5 +97,19 @@ parashot: string[] = [
         const selectElement = event.target as HTMLSelectElement;
         const selectedParasha = selectElement.value;
         this.parashaSelected.emit(selectedParasha);
+    }
+
+
+    writeValue(obj: any): void {
+        throw new Error('Method not implemented.');
+    }
+    registerOnChange(fn: any): void {
+        throw new Error('Method not implemented.');
+    }
+    registerOnTouched(fn: any): void {
+        throw new Error('Method not implemented.');
+    }
+    setDisabledState?(isDisabled: boolean): void {
+        throw new Error('Method not implemented.');
     }
 }
