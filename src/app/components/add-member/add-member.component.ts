@@ -197,6 +197,7 @@ export class AddMemberComponent implements OnInit {
         this.isLoading.set(true);
 
         const member: Member = this.memberForm.value;
+        member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;
 
         //clear form details so they match hiding conditions
