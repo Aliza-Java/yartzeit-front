@@ -3,6 +3,7 @@ import { Yartzeit } from './yartzeit.model';
 
 export interface Member {
   id: number;
+  gender: string;
   firstName: string;
   lastName: string;
   phone: string;
@@ -15,6 +16,7 @@ export interface Member {
   spouse: string;
   aliya: Hdate;
   bmParasha: string;
-  relative?: Member; // optional to avoid infinite recursion on init
+  relative?: Member | null; // optional to avoid infinite recursion on init
   yartzeits: Yartzeit[];
+  since: Date;
 }

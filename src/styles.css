@@ -1,1 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+.section {
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.date-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-alert{
+    color: red;
+    font-weight: bold;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* space between rows */
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* space between label and input */
+}
+
+.select-narrow {
+  max-width: 200px;
+  width: auto;
+  flex: 0 0 auto; /* prevent it from growing */
+}
+
+input {
+    width: 100%;
+}
+
+input.form-control, select.form-control, textarea.form-control {
+  border: 1.5px solid #ccc;        /* soft border */
+  border-radius: 6px;              /* rounded corners */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* subtle shadow */
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  font-size: 1rem;
+  outline-offset: 2px;
+}
+
+/* Focus state with stronger shadow and border color */
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+  border-color: #5a9bf6;
+  box-shadow: 0 0 8px rgba(90, 155, 246, 0.5);
+  background-color: #fff;
+}
+
+/* Optional: smoother placeholder text */
+input.form-control::placeholder, textarea.form-control::placeholder {
+  color: #999;
+  opacity: 1; /* Firefox fix */
+  font-style: italic;
+}
+
+.custom-btn {
+  background-color: #e6f0e9;   /* very light green background */
+  border: 1.5px solid #4CAF50; /* green border */
+  color: #2f6627;              /* dark green text */
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(46, 125, 50, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+
+.custom-btn:hover, .custom-btn:focus {
+  background-color: #4caf50;  /* green fill on hover */
+  color: white;
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.6);
+  outline: none;
+}
+
+.custom-btn svg {
+  flex-shrink: 0; /* prevent shrinking */
+  transition: fill 0.3s ease;
+}
+
+.custom-btn:hover svg {
+  fill: white; /* icon turns white on hover */
+}
+
+.form-label {
+    width: 250px;
+    /* fixed width for label for alignment */
+    font-weight: 600;
+    /* optional, makes label a bit bolder */
+}
