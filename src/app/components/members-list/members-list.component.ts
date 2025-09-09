@@ -39,7 +39,7 @@ export class MembersListComponent implements OnInit {
 
 editMember(member: Member) {
   this.shulService.setSelectedMember(member);
-  this.router.navigate(['/add-member'], { queryParams: { edit: true } });
+  this.router.navigate(['member'], { queryParams: { edit: true } });
 }    }
 
 

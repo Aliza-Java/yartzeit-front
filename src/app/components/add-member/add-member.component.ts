@@ -42,6 +42,7 @@ export class AddMemberComponent implements OnInit {
     constructor(private cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
+        console.log('AddMember init');
         this.route.queryParams.subscribe(params => {
             this.isEdit = (params['edit'] === 'true');
             if (this.isEdit) {
@@ -54,7 +55,7 @@ export class AddMemberComponent implements OnInit {
             firstName: [''],
             lastName: [''],
             phone: [''],
-            email: [''],
+            email: [this.shulService.verifiedEmail || ''],
             hebrewName: [''],
             fatherName: [''],
             motherName: [''],
@@ -216,6 +217,8 @@ export class AddMemberComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
+                    this.shulService.verifiedEmail = ""; //clear it so next time it's not there
+                    this.shulService.clearSelectedMember();
                     this.router.navigate(['/success']);
 
                 },

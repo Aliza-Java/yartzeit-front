@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <ul>
+      <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
+      <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
+      <li><a routerLink="/list" routerLinkActive="active">Members List</a></li>
+      <li><a routerLink="/dates" routerLinkActive="active">Print Dates</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
