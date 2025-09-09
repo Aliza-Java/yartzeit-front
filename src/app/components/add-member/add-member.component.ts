@@ -27,7 +27,6 @@ export class AddMemberComponent implements OnInit {
 
     isEdit: boolean = false;
     thereIsSecondAdult = signal(false);
-    isLoading = signal(false);
 
     memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
@@ -42,7 +41,6 @@ export class AddMemberComponent implements OnInit {
     constructor(private cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
-        console.log('AddMember init');
         this.route.queryParams.subscribe(params => {
             this.isEdit = (params['edit'] === 'true');
             if (this.isEdit) {
@@ -109,7 +107,6 @@ export class AddMemberComponent implements OnInit {
                 this.thereIsSecondAdult.set(true);
             }
         }
-        console.log(this.yartzeits);
 
         //detectChanges() might be necessary for child components to update upon recieving edited member's details
         this.cdr.detectChanges(); 
@@ -195,8 +192,6 @@ export class AddMemberComponent implements OnInit {
     }
 
     onSubmit() {
-        this.isLoading.set(true);
-
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;
@@ -213,7 +208,6 @@ export class AddMemberComponent implements OnInit {
         }
 
         this.httpService.saveMember(member, this.isEdit)
-            .pipe(finalize(() => this.isLoading.set(false))) // Always runs after completion or error
             .subscribe({
                 next: (response) => {
                     console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);

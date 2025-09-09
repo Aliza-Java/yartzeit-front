@@ -28,7 +28,7 @@ th, td {
 }
 
 th {
-    background-color: #007BFF;
+    background-color: var(--main-green);
     color: #fff;
     font-weight: 600;
 }

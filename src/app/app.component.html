@@ -1,16 +1,19 @@
 <div class="app-container">
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <ul>
-      <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
-      <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
-      <li><a routerLink="/list" routerLinkActive="active">Members List</a></li>
-      <li><a routerLink="/dates" routerLinkActive="active">Print Dates</a></li>
-    </ul>
-  </nav>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <ul>
+            <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
+            <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
+            <li><a routerLink="/list" routerLinkActive="active">Members List</a></li>
+            <li><a routerLink="/dates" routerLinkActive="active">Print Dates</a></li>
+        </ul>
+    </nav>
 
-  <!-- Main Content -->
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
+    <!-- Main Content -->
+    <main class="content">
+        <router-outlet></router-outlet>
+        <ngx-spinner class="local-spinner" bdColor="rgba(255,255,255,0.3)" size="large" color="#97c48e"
+            type="ball-spin-clockwise-fade-rotating" [fullScreen]="false">
+        </ngx-spinner>
+    </main>
 </div>
