@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 220px;
-  background: #2c3e50;
+  background: var(--secondary-green);
   color: white;
   padding: 1rem;
 }
@@ -26,7 +26,7 @@
 
 .sidebar a.active {
   font-weight: bold;
-  border-left: 4px solid #3498db;
+  border-left: 4px solid var(--misty-rose-light);
   padding-left: 8px;
 }
 

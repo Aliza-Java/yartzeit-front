@@ -24,7 +24,7 @@ form {
 }
 
 .relative-section {
-    background-color: bisque;
+    background-color: var(--misty-rose-light);
     padding: 30px;
 }
 
@@ -47,7 +47,7 @@ button {
 }
 
 .btn-delete-ytz:hover {
-    background-color: #c82333;
+    background-color: var(--alert);
     /* Darker red */
     transform: scale(1.05);
 }

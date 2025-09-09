@@ -1,6 +1,12 @@
 /* Define global variables */
 :root {
     --main-green: #97c48e;
+    --secondary-green: #217239;
+    --very-light-green: #DAEAD7;
+    --alert: #a4243b;
+    --misty-rose-light: #FFE2D6;
+    --darker-than-rose: #F2C8BA;
+    /* pale dogwood */
 }
 
 .section {
@@ -14,7 +20,7 @@
 }
 
 .custom-alert {
-    color: red;
+    color: var(--alert);
     font-weight: bold;
 }
 
@@ -59,8 +65,8 @@ input.form-control, select.form-control, textarea.form-control {
 
 /* Focus state with stronger shadow and border color */
 input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
-    border-color: #5a9bf6;
-    box-shadow: 0 0 8px rgba(90, 155, 246, 0.5);
+    border-color: var(--main-green);
+    box-shadow: 0 0 8px rgba(218, 234, 215, 0.5);
     background-color: #fff;
 }
 
@@ -75,9 +81,9 @@ input.form-control::placeholder, textarea.form-control::placeholder {
 .custom-btn {
     background-color: #e6f0e9;
     /* very light green background */
-    border: 1.5px solid #4CAF50;
+    border: 1.5px solid var(--main-green);
     /* green border */
-    color: #2f6627;
+    color: var(--secondary-green);
     /* dark green text */
     border-radius: 6px;
     padding: 0.5rem 1rem;
@@ -90,7 +96,7 @@ input.form-control::placeholder, textarea.form-control::placeholder {
 }
 
 .custom-btn:hover, .custom-btn:focus {
-    background-color: #4caf50;
+    background-color: var(--secondary-green);
     /* green fill on hover */
     color: white;
     box-shadow: 0 4px 8px rgba(46, 125, 50, 0.6);

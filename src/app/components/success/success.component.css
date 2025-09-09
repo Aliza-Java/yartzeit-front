@@ -17,7 +17,7 @@
 
 .success-icon {
   font-size: 3rem;
-  color: #28a745;
+  color: var(--main-green);
   margin-bottom: 1rem;
 }
 
