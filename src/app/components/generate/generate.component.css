@@ -28,7 +28,7 @@
 .btn {
     width: 100%;
     padding: 0.7rem;
-    background: var(--main-green);
+    background: var(--secondary-green);
     ;
     color: white;
     border: none;
@@ -40,7 +40,8 @@
 }
 
 .btn:hover {
-    background: var(--secondary-green);
+    border: 3px solid var(--main-green);
+    font-weight: bold;
 }
 
 .result {
@@ -62,7 +63,7 @@
 }
 
 .copy-btn {
-    background: var(--main-green);
+    background: var(--secondary-green);
     border: none;
     color: white;
     padding: 0.4rem 0.8rem;
