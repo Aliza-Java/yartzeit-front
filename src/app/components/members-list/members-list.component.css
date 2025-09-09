@@ -6,6 +6,13 @@ body {
     color: #333;
 }
 
+.table-container {
+    max-height: 80vh;
+    /* table won’t be taller than 80% of screen */
+    overflow-y: auto;
+    /* vertical scroll */
+}
+
 h2 {
     margin-top: 30px;
     text-align: center;
@@ -38,11 +45,13 @@ tr:nth-child(even) {
 }
 
 tbody tr {
-  border-bottom: 1px solid #e0e0e0; /* gentle light gray line */
+    border-bottom: 1px solid #e0e0e0;
+    /* gentle light gray line */
 }
 
 tbody tr:last-child {
-  border-bottom: none; /* remove line after the last row */
+    border-bottom: none;
+    /* remove line after the last row */
 }
 
 tr:hover {
