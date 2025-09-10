@@ -23,8 +23,8 @@ export class HttpService {
         return this.http.get(this.baseUrl);
     }
 
-    generateLink(email: string): Observable<any> {
-        return this.http.post(`${this.baseUrl}/generate`, email, { withCredentials: true, responseType: 'text' });
+    generateLink(): Observable<any> {
+        return this.http.post(`${this.baseUrl}/generate`, {}, { withCredentials: true, responseType: 'text' as 'json' });
     }
 
     verifyCode(code: string): Observable<any> {

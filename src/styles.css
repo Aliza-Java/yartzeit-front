@@ -3,6 +3,7 @@
     --main-green: #97c48e;
     --secondary-green: #217239;
     --very-light-green: #DAEAD7;
+    --extremely-light-green: #ECF4EB;
     --alert: #a4243b;
     --misty-rose-light: #FFE2D6;
     --darker-than-rose: #F2C8BA;
@@ -28,6 +29,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    max-width: 400px;
+    width: 100%;
     /* space between rows */
 }
 
@@ -35,7 +38,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    /* space between label and input */
+}
+
+.form-row app-bm-select app-hdate {
+    flex: 1;
+    /* Take up remaining space */
 }
 
 .select-narrow {
@@ -119,4 +126,35 @@ input.form-control::placeholder, textarea.form-control::placeholder {
     /* fixed width for label for alignment */
     font-weight: 600;
     /* optional, makes label a bit bolder */
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--secondary-green);
+    color: #fff;
+    font-weight: 600;
+}
+
+
+tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    /* gentle light gray line */
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+    /* remove line after the last row */
+}
+
+.small-label {
+    flex: 0;
+    min-width: 150px;
+}
+
+.baseline {
+    align-items: baseline !important;
 }

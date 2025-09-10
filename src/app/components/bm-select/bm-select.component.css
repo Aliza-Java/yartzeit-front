@@ -1,3 +1,14 @@
 select {
     text-align: center;
 }
+
+:host {
+  display: block;       /* let the component behave like a block */
+  flex: 1 1 auto;       /* fill remaining space in parent flex row */
+  min-width: 0;         /* allow shrinking */
+}
+
+input, select {
+  width: 100%;          /* fill the component’s width */
+  box-sizing: border-box; /* prevent overflow due to padding */
+}

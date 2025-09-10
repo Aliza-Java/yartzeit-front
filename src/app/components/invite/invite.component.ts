@@ -26,11 +26,10 @@ export class InviteComponent {
         if (isPlatformBrowser(this.platformId)) { //avoid routing on server side (because then routes twice)
 
             this.httpService.verifyCode(code).subscribe({
-                next: (res) => {
-                    this.shulService.verifiedEmail = res;
+                next: () => {
                     this.router.navigate(['member'], { queryParams: { edit: 'false' } });
                 },
-                error: (err) => {
+                error: () => {
                     this.router.navigate(['error'], { queryParams: { text: "the link is malformed or invalid" } });
                 }
             });

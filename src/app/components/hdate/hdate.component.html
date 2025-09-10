@@ -1,28 +1,42 @@
-<div class="d-flex align-items-center eng-date-section form-pair">
-    <input class="form-control eng-date" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" #dateInput
-    [value]="engDate" [minDate]="minDate" [maxDate]="maxDate" [firstDayOfWeek]="7"
-    (dateSelect)="onDatePick($event)" (keyup)="onDateType(dateInput.value)"/>
-    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
-</div>
+<div id="date-container" class="date-container">
+    <label class="section-label">
+        Hebrew Date
+        <span class="my-tooltip">ℹ
+            <span class="my-tooltip-text">Hebrew date is the main date. Entering an English date will update it
+                automatically.</span>
+        </span>
+    </label>
+    <div class="hebrew-date-group">
+        <div id="hebrew-date" class="date-section hebrew-date">
+            <select id="hebrew-day" class="form-control" [(ngModel)]="day">
+                <option disabled value="">Day</option>
+                @for (day of days; track day) {
+                <option [value]="day">{{ day }}</option>
+                }
+            </select>
+            <span class="separator">/</span>
+            <select id="hebrew-month" class="form-control" [(ngModel)]="month">
+                <option disabled value="">Month</option>
+                @for (month of this.shulService.hebrewMonths; track month) {
+                <option [value]="month">{{ month }}</option>
+                }
+            </select>
+        </div>
+    </div>
 
-@if (checkDateAlert) {
-<div class="custom-alert" role="alert">
-    Is this the correct Hebrew date?
-</div>
-}
+    <div class="helper-text">(Can be calculated from English date)</div>
 
-<div class="d-flex date-section form-pair"> 
-    <select class="form-control select-narrow" [(ngModel)]="day">
-        <option disabled value="">Select Day</option>
-        @for (day of days; track day) {
-        <option [value]="day">{{ day }}</option>
-        }
-    </select>
-        <span class="separator">/</span>
-    <select class="form-control select-narrow" [(ngModel)]="month">
-        <option disabled value="">Select Month</option>
-        @for (month of this.shulService.hebrewMonths; track month) {
-        <option [value]="month">{{ month }}</option>
-        }
-    </select>
+    <!-- Divider 
+    <div class="divider"></div>
+    -->
+
+    <!-- English date section -->
+    <div class="english-date-group">
+        <div class="d-flex align-items-center eng-date-section form-pair">
+            <input class="form-control eng-date" placeholder="Or enter yyyy-mm-dd" name="dp" ngbDatepicker
+                #d="ngbDatepicker" #dateInput [value]="engDate" [minDate]="minDate" [maxDate]="maxDate"
+                [firstDayOfWeek]="7" (dateSelect)="onDatePick($event)" (keyup)="onDateType(dateInput.value)" />
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
+        </div>
+    </div>
 </div>

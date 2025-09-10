@@ -1,33 +1,162 @@
-select {
-    text-align: center;
-    font-weight: bold;
+.date-container {
+    padding: 5px;
+    background-color: var(--very-light-green);
+    max-width: 250px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    white-space: nowrap;
 }
 
+.hebrew-date-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
 
-.eng-date{
-    width: fit-content;
-    text-align: center;
+.english-date-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+}
+
+.section-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
 }
 
 .date-section {
-    margin-top: 10px;
-    max-width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 4px;
+}
+
+.hebrew-date select {
+    text-align: center;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+.separator {
+    font-weight: bold;
+}
+
+.helper-text {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.divider {
+    border-top: 1px solid #ccc;
+    margin: 8px 0;
 }
 
 .form-pair {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-  width: 250px; /* or set a fixed width like 420px if you prefer */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
 }
 
-.form-pair > * {
-  flex: 1; /* Makes each element take equal width */
+.eng-date {
+    flex: 1;
+    text-align: center;
+    font-size: 0.9rem;
 }
 
-.form-pair .separator {
-  flex: none; /* Prevents the separator from growing */
-  width: auto;
-  text-align: center;
+/* Tooltip */
+.my-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #007bff;
+    /* make the ℹ blue so it stands out */
+    font-weight: bold;
+    line-height: 1;
+    padding: 0 3px;
+    /* give it a bigger hover area */
+}
+
+.my-tooltip .my-tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: fit-content;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 100;
+    /* ensure it's on top */
+    bottom: 125%;
+    /* position above */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+    font-size: 0.75rem;
+    pointer-events: none;
+    /* tooltip itself isn’t interactive */
+}
+
+.my-tooltip:hover .my-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* Animation for Hebrew date highlight */
+@keyframes highlight {
+    0% {
+        background-color: #fff3cd;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.hebrew-date.highlight {
+    animation: highlight 1.5s ease-out;
+}
+
+#hebrew-date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* center horizontally */
+    gap: 5px;
+    /* small space between elements */
+    white-space: nowrap;
+    width: 100%;
+}
+
+#hebrew-date select {
+    text-align: center;
+    font-weight: bold;
+    padding: 2px 4px;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+#hebrew-date .separator {
+    flex: none;
+    font-weight: bold;
 }

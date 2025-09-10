@@ -1,13 +1,6 @@
 <div class="container">
   <div class="card">
-    <input
-      type="email"
-      [(ngModel)]="email"
-      placeholder="Enter email"
-      class="input"
-    />
-
-    <button class="btn" (click)="generate()">Generate Link</button>
+       <button class="btn" (click)="generate()">Generate Link</button>
 
     <div *ngIf="generatedLink" class="result">
       <span class="link-text">{{ generatedLink }}</span>

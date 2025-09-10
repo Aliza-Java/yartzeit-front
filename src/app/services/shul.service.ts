@@ -21,8 +21,6 @@ export class ShulService {
         'Elul'
     ];
 
-    verifiedEmail:string = "";
-
     selectedMember = signal<Member | null>(null);
 
   setSelectedMember(member: Member) {

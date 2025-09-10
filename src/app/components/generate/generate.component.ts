@@ -12,25 +12,21 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./generate.component.css']
 })
 export class GenerateComponent {
-    email: string = '';
     generatedLink: string | null = null;
     copied: boolean = false;
 
     constructor(private httpService: HttpService, private router: Router) { }
 
     generate() {
-        if (!this.email) return;
-
-        this.httpService.generateLink(this.email)
+        this.httpService.generateLink()
             .subscribe({
-                next: (res: string) => {
+                next: (res) => {
                     // success
                     this.generatedLink = res;
                 },
                 error: (err) => {
                     // handle error: navigate to error page
-                    const errorMessage = err?.error || 'we were unable to generate a link';
-                    this.router.navigate(['error'], { queryParams: { text: errorMessage } });
+                    this.router.navigate(['error'], { queryParams: { text: 'we were unable to generate a link' } });
                 }
             });
         this.copied = false;

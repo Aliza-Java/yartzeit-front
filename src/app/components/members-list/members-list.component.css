@@ -29,29 +29,8 @@ table {
     margin: 30px auto;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-th {
-    background-color: var(--secondary-green);
-    color: #fff;
-    font-weight: 600;
-}
-
 tr:nth-child(even) {
     background-color: var(--very-light-green);
-}
-
-tbody tr {
-    border-bottom: 1px solid #e0e0e0;
-    /* gentle light gray line */
-}
-
-tbody tr:last-child {
-    border-bottom: none;
-    /* remove line after the last row */
 }
 
 tr:hover {
