@@ -12,6 +12,7 @@ export class ShulService {
         'Tevet',
         "Sh'vat", //that's how it is spelled in hebcal
         'Adar',
+        'Adar 1',
         'Adar 2',
         'Nisan',
         'Iyyar',

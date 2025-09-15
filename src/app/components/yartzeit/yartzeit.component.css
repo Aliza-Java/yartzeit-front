@@ -2,7 +2,54 @@
     margin-top: 25px
 }
 
-.form-label {
-    width: 120px !important;
-    font-weight: 600;
+.name-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    align-items: center;
+}
+
+.form-row {
+    align-items: start;
+    display: flex;
+}
+
+.small-label {
+    min-width: 100px;
+}
+
+.section.justify-content-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .flex-row {
+        flex-direction: column;
+    }
+
+    .small-label {
+        min-width: auto;
+        width: auto !important;
+    }
+
+    .relationship-row {
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        width: 100%;
+    }
+
+    .relationship-row select,
+    .relationship-row input {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+    }
+}
+
+.relationship-row select {
+    margin-bottom: 8px;
 }

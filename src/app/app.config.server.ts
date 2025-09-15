@@ -5,11 +5,11 @@ import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const serverConfig: ApplicationConfig = {
-  providers: [
-    provideServerRendering(), 
-    provideHttpClient(), 
-    importProvidersFrom(ReactiveFormsModule )
-  ]
+    providers: [
+        provideServerRendering(),
+        provideHttpClient(),
+        importProvidersFrom(ReactiveFormsModule)
+    ]
 };
 
 export const config = mergeApplicationConfig(appConfig, serverConfig);

@@ -6,6 +6,13 @@ body {
     color: #333;
 }
 
+.table-container {
+    max-height: 80vh;
+    /* table won’t be taller than 80% of screen */
+    overflow-y: auto;
+    /* vertical scroll */
+}
+
 h2 {
     margin-top: 30px;
     text-align: center;
@@ -22,56 +29,64 @@ table {
     margin: 30px auto;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-th {
-    background-color: #007BFF;
-    color: #fff;
-    font-weight: 600;
-}
-
 tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tbody tr {
-  border-bottom: 1px solid #e0e0e0; /* gentle light gray line */
-}
-
-tbody tr:last-child {
-  border-bottom: none; /* remove line after the last row */
+    background-color: var(--very-light-green);
 }
 
 tr:hover {
-    background-color: #f1f5f9;
+    background-color: var(--main-green);
 }
+
 
 @media (max-width: 600px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }
 
-    th {
+    thead tr {
         display: none;
     }
 
-    td {
+    tbody tr {
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        background-color: #fff;
+        border-radius: 5px;
         padding: 10px;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #e6f5ea;
+    }
+
+    td {
         position: relative;
-        padding-left: 50%;
-        text-align: right;
+        padding-left: 35%;
+        /* space for the label */
+        text-align: left;
+        white-space: normal;
+        min-height: 40px;
+        /* ensures empty cells have enough height */
+        line-height: 1.3em;
+        /* improves vertical spacing for text */
+        vertical-align: middle;
+        /* aligns label and content nicely */
     }
 
     td::before {
         content: attr(data-label);
         position: absolute;
-        left: 15px;
-        width: 45%;
-        padding-right: 10px;
+        left: 10px;
+        width: 30%;
+        /* narrower than before */
         font-weight: bold;
         text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    table {
+            width: 100%; 
     }
 }

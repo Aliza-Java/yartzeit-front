@@ -22,4 +22,14 @@ export class HttpService {
     getMembers(): Observable<any> {
         return this.http.get(this.baseUrl);
     }
+
+    generateLink(): Observable<any> {
+        return this.http.post(`${this.baseUrl}/generate`, {}, { withCredentials: true, responseType: 'text' as 'json' });
+    }
+
+    verifyCode(code: string): Observable<any> {
+        return this.http.post(`${this.baseUrl}/verify`, { code }, { withCredentials: true, responseType: 'text' });
+    }
+
+
 }

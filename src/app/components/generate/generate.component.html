@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="card">
+       <button class="btn" (click)="generate()">Generate Link</button>
+
+    <div *ngIf="generatedLink" class="result">
+      <span class="link-text">{{ generatedLink }}</span>
+      <button class="copy-btn" (click)="copyToClipboard()">Copy</button>
+    </div>
+
+    <div *ngIf="copied" class="copied-msg">Copied!</div>
+  </div>
+</div>

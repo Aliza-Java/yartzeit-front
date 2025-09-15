@@ -10,7 +10,6 @@ import { BmSelectComponent } from "../bm-select/bm-select.component";
 import { Hdate } from '../../models/hdate.model';
 import { Yartzeit } from '../../models/yartzeit.model';
 import { YartzeitComponent } from '../yartzeit/yartzeit.component';
-import { finalize } from 'rxjs';
 import { ShulService } from '../../services/shul.service';
 
 
@@ -27,11 +26,10 @@ export class AddMemberComponent implements OnInit {
 
     isEdit: boolean = false;
     thereIsSecondAdult = signal(false);
-    isLoading = signal(false);
 
     memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
-    addingYartzeit: boolean = true;
+    addingYartzeit: boolean = false;
 
     private fb = inject(FormBuilder);
     private httpService = inject(HttpService);
@@ -91,6 +89,12 @@ export class AddMemberComponent implements OnInit {
                     engDate: new FormControl(null)
                 }),
                 bmParasha: [''],
+                anniversary: this.fb.group({
+                    day: new FormControl(0),
+                    month: new FormControl(""),
+                    engDate: new FormControl(null)
+                }),
+                spouse: [''],
                 aliya: this.fb.group({
                     day: new FormControl(0),
                     month: new FormControl(""),
@@ -108,10 +112,9 @@ export class AddMemberComponent implements OnInit {
                 this.thereIsSecondAdult.set(true);
             }
         }
-        console.log(this.yartzeits);
 
         //detectChanges() might be necessary for child components to update upon recieving edited member's details
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
     }
 
     addYartzeit() {
@@ -159,6 +162,18 @@ export class AddMemberComponent implements OnInit {
         });
     }
 
+    onAnniversaryDateRelativeChange(hebrewDate: Hdate) {
+        this.memberForm.patchValue({
+            relative: {
+                anniversary: {
+                    day: hebrewDate.day,
+                    month: hebrewDate.month,
+                    engDate: hebrewDate.engDate
+                }
+            }
+        });
+    }
+
     onAliyaDateChange(hebrewDate: Hdate) {
         this.memberForm.patchValue({
             aliya: {
@@ -194,8 +209,6 @@ export class AddMemberComponent implements OnInit {
     }
 
     onSubmit() {
-        this.isLoading.set(true);
-
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;
@@ -212,10 +225,10 @@ export class AddMemberComponent implements OnInit {
         }
 
         this.httpService.saveMember(member, this.isEdit)
-            .pipe(finalize(() => this.isLoading.set(false))) // Always runs after completion or error
             .subscribe({
                 next: (response) => {
                     console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
+                    this.shulService.clearSelectedMember();
                     this.router.navigate(['/success']);
 
                 },
@@ -260,6 +273,18 @@ export class AddMemberComponent implements OnInit {
 
     get anniversaryEngDateValue() {
         return this.memberForm.get('anniversary.engDate')?.value || '';
+    }
+
+    get anniversaryDayRelValue() {
+        return this.memberForm.get('relative.anniversary.day')?.value || '';
+    }
+
+    get anniversaryMonthRelValue() {
+        return this.memberForm.get('relative.anniversary.month')?.value || '';
+    }
+
+    get anniversaryEngDateRelValue() {
+        return this.memberForm.get('relative.anniversary.engDate')?.value || '';
     }
 
     get aliyaDayValue() {

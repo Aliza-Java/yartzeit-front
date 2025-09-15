@@ -24,7 +24,7 @@ form {
 }
 
 .relative-section {
-    background-color: bisque;
+    background-color: var(--extremely-light-green);
     padding: 30px;
 }
 
@@ -47,7 +47,7 @@ button {
 }
 
 .btn-delete-ytz:hover {
-    background-color: #c82333;
+    background-color: var(--alert);
     /* Darker red */
     transform: scale(1.05);
 }
@@ -55,11 +55,6 @@ button {
 .btn-delete-ytz i {
     color: white;
     /* Ensures the trash icon is visible */
-}
-
-.narrow-form {
-    max-width: 400px;
-    width: 100%;
 }
 
 select {
@@ -76,14 +71,17 @@ hr {
 }
 
 app-yartzeit {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    /* soft gray border */
+    /* border: 1px solid rgba(0, 0, 0, 0.2);
+     soft gray border */
+    background-color: var(--extremely-light-green);
     border-radius: 8px;
     /* rounded corners */
     padding: 10px;
     /* some space inside */
     display: block;
     /* ensures it behaves like a block element */
+    width: 400px;
+
 }
 
 .relative-heading-container input[type="checkbox"] {
@@ -100,28 +98,78 @@ app-yartzeit {
 }
 
 .form-logo {
-    max-width: 300px;       /* default size for desktop */
-    width: 100%;            /* allow shrinking */
-    height: auto;           /* keep aspect ratio */
+    max-width: 300px;
+    /* default size for desktop */
+    width: 100%;
+    /* allow shrinking */
+    height: auto;
+    /* keep aspect ratio */
     margin: 20px 0;
 }
 
-@media (max-width: 576px) { /* small screens (Bootstrap sm breakpoint) */
+@media (max-width: 576px) {
+
+    /* small screens (Bootstrap sm breakpoint) */
     .form-logo {
-        max-width: 150px;   /* smaller logo on phones */
+        max-width: 150px;
+        /* smaller logo on phones */
         margin: 15px 0;
+    }
+
+    form {
+        margin-left: auto !important;
+    }
+
+    .yartzeit-container {
+        width: 100%;
+        /* full width on small screens */
+        box-sizing: border-box;
+        /* include padding in width */
+        padding: 0 10px;
+        /* some side padding */
+    }
+
+    app-yartzeit {
+        width: 100%;
+        /* full width on small screens */
+    }
+
+
+    .small-label {
+        min-width: 100px;
+        width: auto !important;
     }
 }
 
 .loading-overlay {
-  position: fixed; /* Covers whole screen */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.7); /* semi-transparent */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Stay on top of everything */
+    position: fixed;
+    /* Covers whole screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.7);
+    /* semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Stay on top of everything */
+}
+
+.btn-xl {
+    padding: 1rem 2rem;
+    /* bigger padding */
+    font-size: 1.2rem;
+    /* bigger text */
+    border-radius: 0.5rem;
+    /* optional */
+}
+
+.hdate-row {
+    margin: 10px 0;
+}
+
+table {
+    width: 400px;
 }

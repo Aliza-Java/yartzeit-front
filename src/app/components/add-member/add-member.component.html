@@ -1,9 +1,3 @@
-<div *ngIf="isLoading()" class="loading-overlay">
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 text-center">
@@ -14,7 +8,7 @@
         <div class="col-12 col-md-8">
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
                 <h3 class="text-center">Member Registration Form</h3>
-                <div class="section form-container narrow-form text-start">
+                <div class="section form-container text-start">
                     <div class="form-row">
                         <label class="form-label" for="gender">Please select:</label>
                         <select class="form-control" formControlName="gender" id="gender">
@@ -42,7 +36,7 @@
                 </div>
 
 
-                <div class="section form-container narrow-form text-start">
+                <div class="section form-container text-start">
                     <!-- Hebrew name and parents -->
                     <div class="form-row">
                         <label class="form-label" for="hebrewName">Hebrew Name:</label>
@@ -61,92 +55,55 @@
                     </div>
                 </div>
 
-                <hr>
-
-                <h4 class="text-center">Yartzeits</h4>
-
-                <div *ngIf="addingYartzeit" class="text-start">
-                    <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)">
-                    </app-yartzeit>
-                </div>
-
-                <button *ngIf="!addingYartzeit" type="button"
-                    class="btn custom-btn d-flex align-items-center text-center" (click)="addYartzeit()">
-                    <i class="bi bi-patch-plus me-2" width="20" height="20" fill="green"></i>
-                    <span *ngIf="yartzeits.length > 0">Add Another Yartzeit</span>
-                    <span *ngIf="yartzeits.length == 0">Add a Yartzeit</span>
-                </button>
-
-                <table *ngIf="yartzeits.length > 0" class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Relationship</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let y of yartzeits; let i = index">
-                            <td>{{ y.name }}</td>
-                            <td>{{ y.date.day }}/{{ y.date.month }}</td>
-                            <td>{{ y.relationship }}</td>
-                            <td> <!--todo: add edit button-->
-                                <button (click)="removeYartzeit(y)" class="btn btn-danger btn-delete-ytz">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <hr>
-
-                <h4 class="text-center">Important Dates</h4>
-
-                <div formGroupName="dob" class="section date-section text-center">
-                    <label>Date of birth:</label>
-                    <app-hdate (dateChange)="onDobDateChange($event)" [day]="memberForm.get('dob.day')?.value"
-                        [month]="memberForm.get('dob.month')?.value" [engDate]="memberForm.get('dob.engDate')?.value">
-                    </app-hdate>
+                <div class="section form-container text-start">
+                    <div formGroupName="dob" class="form-row baseline hdate-row">
+                        <label class="form-label small-label">Date of birth:</label>
+                        <app-hdate (dateChange)="onDobDateChange($event)" [day]="memberForm.get('dob.day')?.value"
+                            [month]="memberForm.get('dob.month')?.value"
+                            [engDate]="memberForm.get('dob.engDate')?.value">
+                        </app-hdate>
+                    </div>
 
                     @if (memberForm.get('gender')?.value == 'MALE') {
                     <div class="form-row">
-                        <label class="form-label" for="bmParasha" style="width: auto">Bar Mitzva Parasha:</label>
-                        <app-bm-select [selected]="memberForm.get('bmParasha')?.value" (parashaSelected)="onParashaSelected($event)"></app-bm-select>
+                        <label class="form-label small-label" for="bmParasha">Bar Mitzva Parasha:</label>
+                        <app-bm-select [selected]="memberForm.get('bmParasha')?.value"
+                            (parashaSelected)="onParashaSelected($event)"></app-bm-select>
                     </div>
                     }
 
-                </div>
+                    <div formGroupName="anniversary" class="form-row baseline hdate-row">
+                        <label class="form-label small-label">Anniversary: (If applicable)</label>
+                        <app-hdate (dateChange)="onAnniversaryDateChange($event)" [day]="anniversaryDayValue"
+                            [month]="anniversaryMonthValue" [engDate]="anniversaryEngDateValue">
+                        </app-hdate>
+                    </div>
 
-                <div formGroupName="anniversary" class="section date-section text-center">
-                    <label>Anniversary: (If applicable)</label>
-                    <app-hdate (dateChange)="onAnniversaryDateChange($event)" [day]="anniversaryDayValue"
-                        [month]="anniversaryMonthValue" [engDate]="anniversaryEngDateValue">
-                    </app-hdate>
-                </div>
+                    <div class="form-row">
+                        <label class="form-label small-label" for="spouse">Spouse:</label>
+                        <input id="spouse" class="form-control" formControlName="spouse" placeholder="Spouse's name">
+                    </div>
 
-                <input class="form-control text-center" formControlName="spouse" placeholder="Spouse's name"
-                    style="width: 250px">
-
-                <div formGroupName="aliya" class="section date-section text-center">
-                    Aliya: (If applicable)
-                    <app-hdate (dateChange)="onAliyaDateChange($event)" [day]="aliyaDayValue"
-                        [month]="aliyaMonthValue" [engDate]="aliyaEngDateValue">
-                    </app-hdate>
+                    <div formGroupName="aliya" class="form-row baseline hdate-row">
+                        <label class="form-label small-label">Aliya: (If applicable)</label>
+                        <app-hdate (dateChange)="onAliyaDateChange($event)" [day]="aliyaDayValue"
+                            [month]="aliyaMonthValue" [engDate]="aliyaEngDateValue">
+                        </app-hdate>
+                    </div>
                 </div>
 
                 <hr>
 
                 <div formGroupName="relative" class="relative-heading-container d-flex align-items-center">
-                    <input type="checkbox" [checked]="thereIsSecondAdult()" (change)="toggleRelative()" id="relativeCheckbox">
+                    <input type="checkbox" [checked]="thereIsSecondAdult()" (change)="toggleRelative()"
+                        id="relativeCheckbox">
                     <label for="relativeCheckbox" class="ms-2" style="font-size: 1.5rem;">Add a second adult</label>
                 </div>
 
                 @if (thereIsSecondAdult())
                 {
                 <div formGroupName="relative" class="relative-section text-start">
-                    <div class="section form-container">
+                    <div class="form-container ">
                         <div class="form-row">
                             <label class="form-label" for="gender">Please select:</label>
                             <select class="form-control" formControlName="gender" id="gender">
@@ -175,7 +132,7 @@
                         </div>
                     </div>
 
-                    <div class="section form-container">
+                    <div class="section form-container ">
                         <!-- Hebrew name and parents -->
                         <div class="form-row">
                             <label class="form-label" for="hebrewName">Hebrew Name:</label>
@@ -194,33 +151,89 @@
                         </div>
                     </div>
 
-                    <div formGroupName="dob" class="section date-section">
-                        <label>Date of birth:</label>
-                        <app-hdate (dateChange)="onDobDateRelativeChange($event)" [day]="dobDayRelValue"
-                            [month]="dobMonthRelValue" [engDate]="dobEngDateRelValue">
-                        </app-hdate>
-
-                        @if (memberForm.get('relative.gender')?.value == 'MALE') {
-                        <div class="form-row">
-                            <label class="form-label" for="bmParasha" style="width: auto">Bar Mitzva Parasha:</label>
-                            <app-bm-select [selected]="memberForm.get('relative.bmParasha')?.value" (parashaSelected)="onParashaRelativeSelected($event)"></app-bm-select>
+                    <div class="section form-container ">
+                        <div formGroupName="dob" class="form-row baseline hdate-row">
+                            <label class="form-label small-label">Date of birth:</label>
+                            <app-hdate (dateChange)="onDobDateRelativeChange($event)" [day]="dobDayRelValue"
+                                [month]="dobMonthRelValue" [engDate]="dobEngDateRelValue">
+                            </app-hdate>
                         </div>
-                        }
-                    </div>
 
-                    <div formGroupName="aliya" class="section date-section">
-                        Aliya: (If applicable)
-                        <app-hdate (dateChange)="onAliyaDateRelativeChange($event)" [day]="aliyaDayRelValue"
-                            [month]="aliyaMonthRelValue" [engDate]="aliyaEngDateRelValue">
-                        </app-hdate>
+                        <div class="form-row baseline hdate-row">
+                            @if (memberForm.get('relative.gender')?.value == 'MALE') {
+                            <div class="form-row">
+                                <label class="form-label small-label" for="bmParasha">Bar Mitzva Parasha:</label>
+                                <app-bm-select [selected]="memberForm.get('relative.bmParasha')?.value"
+                                    (parashaSelected)="onParashaRelativeSelected($event)"></app-bm-select>
+                            </div>
+                            }
+                        </div>
+
+                        <div formGroupName="anniversary" class="form-row baseline hdate-row">
+                            <label class="form-label small-label">Anniversary: (If applicable)</label>
+                            <app-hdate (dateChange)="onAnniversaryDateRelativeChange($event)"
+                                [day]="anniversaryDayRelValue" [month]="anniversaryMonthRelValue"
+                                [engDate]="anniversaryEngDateRelValue">
+                            </app-hdate>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="form-label small-label" for="spouse">Spouse's name:</label>
+                            <input id="spouse" class="form-control" formControlName="spouse"
+                                placeholder="Spouse's name">
+                        </div>
+
+                        <div formGroupName="aliya" class="form-row baseline hdate-row">
+                            <label class="form-label small-label">Aliya: (If applicable)</label>
+                            <app-hdate (dateChange)="onAliyaDateRelativeChange($event)" [day]="aliyaDayRelValue"
+                                [month]="aliyaMonthRelValue" [engDate]="aliyaEngDateRelValue">
+                            </app-hdate>
+                        </div>
                     </div>
                 </div>
                 }
 
-                <button type="submit" class="btn custom-btn d-flex align-items-center text-center"
-                    (click)="addYartzeit()">
+                <hr>
+
+                <h4 class="text-center">Yartzeits</h4>
+                <table *ngIf="yartzeits.length > 0" class="table text-center">
+                    <thead>
+                        <tr>
+                            <th style="width:fit-content">Name</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let y of yartzeits; let i = index">
+                            <td>{{ y.name }}</td>
+                            <td>{{ y.date.day }}/{{ y.date.month }}</td>
+                            <td>{{ y.relationship | titlecase}}</td>
+                            <td> <!--todo: add edit button-->
+                                <button (click)="removeYartzeit(y)" class="btn btn-danger btn-delete-ytz">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="addingYartzeit" class="text-start yartzeit-container">
+                    <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)">
+                    </app-yartzeit>
+                </div>
+
+                <button *ngIf="!addingYartzeit" type="button"
+                    class="btn custom-btn d-flex align-items-center text-center" (click)="addYartzeit()">
+                    <i class="bi bi-patch-plus me-2" width="20" height="20" fill="green"></i>
+                    <span *ngIf="yartzeits.length > 0">Add Another Yartzeit</span>
+                    <span *ngIf="yartzeits.length == 0">Add a Yartzeit</span>
+                </button>
+
+                <button type="submit" class="btn btn-xl custom-btn d-flex align-items-center text-center">
                     <i class="bi bi-send me-2" width="20" height="20" fill="green"></i>
-                    {{isEdit ? 'Save Changes' : 'Add Member'}}
+                    {{isEdit ? 'Click to save changes' : 'Click to save details'}}
                 </button>
 
             </form>

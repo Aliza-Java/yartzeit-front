@@ -1,4 +1,4 @@
-<select class="form-control select-narrow" [(ngModel)]="selected" (change)="onSelectParasha($event)">
+<select class="form-control" [(ngModel)]="selected" (change)="onSelectParasha($event)">
     <option disabled value="">Select an option</option>
     @for (parasha of parashot; track parasha) {
     <option [value]="parasha">{{ parasha }}</option>
