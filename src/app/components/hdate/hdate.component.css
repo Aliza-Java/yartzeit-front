@@ -112,6 +112,11 @@
     transition: opacity 0.3s;
     font-size: 0.75rem;
     pointer-events: none;
+    width: 180px;
+    /* Limit the width */
+    white-space: normal;
+    /* Allow wrapping */
+    word-break: break-word;
     /* tooltip itself isn’t interactive */
 }
 

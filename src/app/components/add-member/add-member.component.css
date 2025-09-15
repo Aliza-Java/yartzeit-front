@@ -115,6 +115,30 @@ app-yartzeit {
         /* smaller logo on phones */
         margin: 15px 0;
     }
+
+    form {
+        margin-left: auto !important;
+    }
+
+    .yartzeit-container {
+        width: 100%;
+        /* full width on small screens */
+        box-sizing: border-box;
+        /* include padding in width */
+        padding: 0 10px;
+        /* some side padding */
+    }
+
+    app-yartzeit {
+        width: 100%;
+        /* full width on small screens */
+    }
+
+
+    .small-label {
+        min-width: 100px;
+        width: auto !important;
+    }
 }
 
 .loading-overlay {

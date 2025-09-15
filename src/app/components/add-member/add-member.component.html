@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="form-row">
-                        <label class="form-label" for="spouse">Spouse:</label>
+                        <label class="form-label small-label" for="spouse">Spouse:</label>
                         <input id="spouse" class="form-control" formControlName="spouse" placeholder="Spouse's name">
                     </div>
 
@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="form-row">
-                            <label class="form-label" for="spouse">Spouse's name:</label>
+                            <label class="form-label small-label" for="spouse">Spouse's name:</label>
                             <input id="spouse" class="form-control" formControlName="spouse"
                                 placeholder="Spouse's name">
                         </div>
@@ -219,7 +219,7 @@
                     </tbody>
                 </table>
 
-                <div *ngIf="addingYartzeit" class="text-start">
+                <div *ngIf="addingYartzeit" class="text-start yartzeit-container">
                     <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)">
                     </app-yartzeit>
                 </div>
