@@ -4,25 +4,25 @@
 </div>
 }
 
-<div class="section form-row baseline small-label align-items-center flex-wrap">
-    <label class="form-label small-label">Name: </label>
+<div class="section form-row baseline align-items-center flex-wrap">
+    <label class="form-label">Name: </label>
     <div class="name-group">
         <input class="form-control grow" [(ngModel)]="name1" placeholder="Name">
-        <select class="form-select w-auto" [(ngModel)]="benbat">
+        <select class="form-select grow" [(ngModel)]="benbat">
             <option value="ben" selected>ben</option>
             <option value="bat">bat</option>
         </select>
         <input class="form-control grow" [(ngModel)]="name2" placeholder="Father's Name">
     </div>
 
-    <div class="section date-section me-3 mb-3 mb-md-0 flex-row">
-        <label class="form-label small-label">Date of passing: </label>
+    <div class="section date-section form-row me-3 mb-3 mb-md-0 flex-row">
+        <label class="form-label">Date of passing: </label>
         <app-hdate [day]="hDate.day" [month]="hDate.month" [engDate]="hDate.month" (dateChange)="updateDate($event)">
         </app-hdate>
     </div>
 
-    <div class="section d-flex flex-row align-items-center baseline">
-        <label class="form-label small-label" for="otherRelationship">Relationship:</label>
+    <div class="section d-flex flex-row align-items-center baseline form-row">
+        <label class="form-label" for="otherRelationship">Relationship:</label>
         <div class="relationship-row">
             <select class="form-control me-3" [(ngModel)]="relationship">
                 <option disabled value="">Select Relationship</option>

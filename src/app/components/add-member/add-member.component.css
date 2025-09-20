@@ -16,16 +16,28 @@ form {
     align-items: center;
 }
 
-.form-label {
-    width: 250px;
-    /* fixed width for label for alignment */
-    font-weight: 600;
-    /* optional, makes label a bit bolder */
+
+.btn-add-second {
+    margin: 0px; 
+    margin-bottom: 20px;
+    width: 100%; 
+    text-align: center;
+    justify-content: center;
 }
 
-.relative-section {
+.big-section {
     background-color: var(--extremely-light-green);
     padding: 30px;
+    width: 100%;
+}
+
+.big-section .table {
+    width: 100%;
+    table-layout: auto;
+}
+
+.yartzeits {
+    width: 100%;
 }
 
 #relativeCheckbox {
@@ -35,7 +47,6 @@ form {
 button {
     width: fit-content;
     margin-top: 20px;
-    align-self: center;
     margin-bottom: 50px;
 }
 
@@ -75,12 +86,9 @@ app-yartzeit {
      soft gray border */
     background-color: var(--extremely-light-green);
     border-radius: 8px;
-    /* rounded corners */
-    padding: 10px;
-    /* some space inside */
     display: block;
     /* ensures it behaves like a block element */
-    width: 400px;
+    width: 100%;
 
 }
 
@@ -95,6 +103,15 @@ app-yartzeit {
     /* remove default h4/label spacing */
     font-size: 1rem;
     /* normal text size */
+}
+
+.relative-heading-container {
+    justify-content: flex-start !important;
+    /* left-align in flexbox */
+    width: fit-content;
+    /* shrink to content width */
+    margin-left: 0 !important;
+    /* remove any auto-centering */
 }
 
 .form-logo {
@@ -135,10 +152,14 @@ app-yartzeit {
     }
 
 
-    .small-label {
+    .form-label {
+        width: 100%;
         min-width: 100px;
-        width: auto !important;
     }
+
+    .big-section {
+    padding: 15px;
+}
 }
 
 .loading-overlay {
@@ -166,10 +187,30 @@ app-yartzeit {
     /* optional */
 }
 
-.hdate-row {
-    margin: 10px 0;
+table {
+    width: 100%;
 }
 
-table {
-    width: 400px;
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto; 
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        width: 400px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 435px) {
+    .form-container {
+        width: 100%;
+        max-width: 100%;
+    }
 }
