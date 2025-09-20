@@ -1,0 +1,28 @@
+<div class="table-wrapper" *ngIf="yartzeits?.length">
+    <table id="printTable" border="1" cellspacing="0" cellpadding="8">
+        <thead>
+            <tr>
+                <th class="title-head" colspan="3" style="text-align: center;">Yartzeits</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Relationship</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let y of yartzeits">
+                <td>{{y.day}} {{y.month}}</td>
+                <td>{{y.yname}}</td>
+                <td>{{y.firstName}} {{y.lastName}}'s {{y.relationship}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Button -->
+<div class="button-wrapper">
+    <button (click)="downloadPDF()" class="px-4 py-2 text-white rounded">
+        Download as PDF
+    </button>
+</div>

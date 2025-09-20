@@ -1,0 +1,16 @@
+<div class="print-container">
+  <!-- Print Menu -->
+  <nav class="print-menu">
+    <ul>
+      <li><a routerLink="yartzeits" routerLinkActive="active">Yartzeits</a></li>
+      <li><a routerLink="anniversaries" routerLinkActive="active">Anniversaries</a></li>
+      <li><a routerLink="parashot" routerLinkActive="active">Bar-Mitzva Parashot</a></li>
+    <!--  <li><a routerLink="combined" routerLinkActive="active">Combined</a></li>-->
+    </ul>
+  </nav>
+
+  <!-- Where child routes render -->
+  <div class="print-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
