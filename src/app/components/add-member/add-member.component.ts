@@ -56,7 +56,7 @@ export class AddMemberComponent implements OnInit {
             hebrewName: [''],
             fatherName: [''],
             motherName: [''],
-            bmParasha: [''],
+            bmparasha: [''],
 
             dob: this.fb.group({
                 day: new FormControl(0),
@@ -88,7 +88,7 @@ export class AddMemberComponent implements OnInit {
                     month: new FormControl(""),
                     engDate: new FormControl(null)
                 }),
-                bmParasha: [''],
+                bmparasha: [''],
                 anniversary: this.fb.group({
                     day: new FormControl(0),
                     month: new FormControl(""),
@@ -197,11 +197,11 @@ export class AddMemberComponent implements OnInit {
     }
 
     onParashaSelected(parasha: string) {
-        this.memberForm.patchValue({ bmParasha: parasha });
+        this.memberForm.patchValue({ bmparasha: parasha });
     }
 
     onParashaRelativeSelected(parasha: string) {
-        this.memberForm.patchValue({ relative: { bmParasha: parasha } });
+        this.memberForm.patchValue({ relative: { bmparasha: parasha } });
     }
 
     toggleRelative() {
@@ -215,10 +215,10 @@ export class AddMemberComponent implements OnInit {
 
         //clear form details so they match hiding conditions
         if (member.gender == 'FEMALE') {
-            member.bmParasha = '';
+            member.bmparasha = '';
         }
         if (member.relative && member.relative.gender == 'FEMALE') {
-            member.relative.bmParasha = '';
+            member.relative.bmparasha = '';
         }
         if (!this.thereIsSecondAdult()) {
             member.relative = null;
@@ -240,7 +240,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get dobDayValue() {
-        return this.memberForm.get('dob.day')?.value || '';
+        return this.memberForm.get('dob.day')?.value || 0;
     }
 
     get dobMonthValue() {
@@ -252,7 +252,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get dobDayRelValue() {
-        return this.memberForm.get('relative.dob.day')?.value || '';
+        return this.memberForm.get('relative.dob.day')?.value || 0;
     }
 
     get dobMonthRelValue() {
@@ -264,7 +264,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get anniversaryDayValue() {
-        return this.memberForm.get('anniversary.day')?.value || '';
+        return this.memberForm.get('anniversary.day')?.value || 0;
     }
 
     get anniversaryMonthValue() {
@@ -276,7 +276,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get anniversaryDayRelValue() {
-        return this.memberForm.get('relative.anniversary.day')?.value || '';
+        return this.memberForm.get('relative.anniversary.day')?.value || 0;
     }
 
     get anniversaryMonthRelValue() {
@@ -288,7 +288,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get aliyaDayValue() {
-        return this.memberForm.get('aliya.day')?.value || '';
+        return this.memberForm.get('aliya.day')?.value || 0;
     }
 
     get aliyaMonthValue() {
@@ -300,7 +300,7 @@ export class AddMemberComponent implements OnInit {
     }
 
     get aliyaDayRelValue() {
-        return this.memberForm.get('relative.aliya.day')?.value || '';
+        return this.memberForm.get('relative.aliya.day')?.value || 0;
     }
 
     get aliyaMonthRelValue() {

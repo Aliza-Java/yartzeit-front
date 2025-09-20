@@ -1,5 +1,5 @@
 export class Hdate {
-  day: number = 1;
-  month: string = "";
-  engDate: Date | string = "";
+  day: number | null | undefined;
+  month: string| undefined;
+  engDate: Date | String | undefined;
 }

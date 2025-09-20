@@ -16,9 +16,9 @@ import { FormsModule } from '@angular/forms';
 export class HdateComponent {
     @Output() dateChange = new EventEmitter<Hdate>();
 
-    @Input() day: number | null = null;
-    @Input() month: string | "" = "";
-    @Input() engDate: string | Date = "";
+    @Input() day: number | null | undefined = 0;
+    @Input() month: string | undefined | "" = "";
+    @Input() engDate: string | Date | undefined = "";
 
     minDate: { year: number; month: number; day: number; };
     maxDate: { year: number; month: number; day: number; };
@@ -79,5 +79,23 @@ export class HdateComponent {
         this.checkDateAlert = true;
         console.log('Hebrew date calculated:', hebrewDate);
         this.dateChange.emit(hebrewDate);
+    }
+
+    onMonthChange(newMonth: string) {
+        this.month = newMonth;
+        this.emitCurrentDate();
+    }
+
+    emitCurrentDate() {
+        this.dateChange.emit({
+            day: this.day,
+            month: this.month,
+            engDate: this.engDate
+        });
+    }
+
+    onDayChange(newDay: number) {
+        this.day = newDay;
+        this.emitCurrentDate();
     }
 }    
