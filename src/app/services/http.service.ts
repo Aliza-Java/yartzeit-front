@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
     //private baseUrl = 'http://localhost:8080/shul/'; // local
-    //private baseUrl = 'https://ec2-13-60-6-160.eu-north-1.compute.amazonaws.com/shul/'; // production
     private baseUrl = 'https://api.elcmembers.online/shul/'; // production
 
     constructor(private http: HttpClient) { }

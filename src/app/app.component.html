@@ -1,6 +1,6 @@
 <div class="app-container">
     <!-- Sidebar -->
-    <nav class="sidebar">
+    <nav class="sidebar" *ngIf="showSidebar && sidebarReady">
         <ul>
             <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
             <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
