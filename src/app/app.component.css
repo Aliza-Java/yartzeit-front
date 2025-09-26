@@ -34,6 +34,12 @@
     flex-grow: 1;
     padding: 2rem;
     background: #F5F5F5;
+    /*always, regardless of screen size*/
+    flex: 1;
+    overflow-y: auto;
+    /* scroll only content */
+    padding: 1rem;
+    position: relative;
 }
 
 .spinner-text {
@@ -44,10 +50,6 @@
     font-size: 20px;
     color: white;
     font-weight: bold;
-}
-
-.content {
-    position: relative;
 }
 
 .local-spinner .ngx-spinner-overlay {
@@ -98,12 +100,20 @@
         /* underline active link */
         font-weight: bold;
     }
-}
 
-.content {
-    /*always, regardless of screen size*/
-    flex: 1;
-    overflow-y: auto;
-    /* scroll only content */
-    padding: 1rem;
+    .content {
+        padding: 0px;
+    }
+
+    .version-note {
+        display: none;
+    }             /* Optional: make it a bit faded */
+}
+.version-note {
+    margin-top: auto;           /* Pushes to the bottom */
+    font-size: 0.8rem;          /* Small text */
+    color: var(--main-green);               /* White color */
+    text-align: center;
+    padding: 8px 0;
+    opacity: 0.7;  
 }

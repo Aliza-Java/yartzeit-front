@@ -1,0 +1,28 @@
+<div class="table-wrapper" *ngIf="bmparashot?.length">
+    <table id="printTable" border="1" cellspacing="0" cellpadding="8">
+        <thead>
+            <tr>
+                <th class="title-head" colspan="4" style="text-align: center;">Bar Mitzva Parashas</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Name for Aliya</th>
+                <th>Bar Mitzva Parasha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let b of bmparashot">
+                <td>{{b.firstName}} {{b.lastName}}</td>
+                <td>{{b.hebName}} ben {{b.fatherName}}</td>
+                <td>{{b.parasha}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Button -->
+<div class="button-wrapper">
+    <button (click)="downloadPDF()" class="px-4 py-2 text-white rounded">
+        Download as PDF
+    </button>
+</div>

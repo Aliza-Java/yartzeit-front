@@ -19,9 +19,16 @@ export class YartzeitComponent {
     name1: string = '';
     benbat: string = 'ben';
     name2: string = '';
-    hDate: Hdate = new Hdate();
+    hDate: Hdate;
     relationship: string = '';
     otherRelationship: string = '';
+
+    constructor() {
+        this.hDate = new Hdate();
+        this.hDate.day = 0;
+        this.hDate.month = '';
+        this.hDate.engDate = '';
+    }
 
     updateDate(date: Hdate) {
         this.hDate.month = date.month;

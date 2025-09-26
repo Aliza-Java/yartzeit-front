@@ -27,6 +27,7 @@ export class InviteComponent {
 
             this.httpService.verifyCode(code).subscribe({
                 next: () => {
+                    this.shulService.isGuest = true;
                     this.router.navigate(['member'], { queryParams: { edit: 'false' } });
                 },
                 error: () => {

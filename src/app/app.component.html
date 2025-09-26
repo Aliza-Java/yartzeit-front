@@ -1,12 +1,13 @@
 <div class="app-container">
     <!-- Sidebar -->
-    <nav class="sidebar">
+    <nav class="sidebar" *ngIf="showSidebar && sidebarReady">
         <ul>
             <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
             <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
             <li><a routerLink="/list" routerLinkActive="active">Members List</a></li>
-            <li><a routerLink="/dates" routerLinkActive="active">Print Dates</a></li>
+            <li><a routerLink="/print" routerLinkActive="active">Print Dates</a></li>
         </ul>
+        <!--<div class="version-note">sep20</div>-->
     </nav>
 
     <!-- Main Content -->

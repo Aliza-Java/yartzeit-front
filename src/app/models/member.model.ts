@@ -15,7 +15,7 @@ export interface Member {
   anniversary: Hdate;
   spouse: string;
   aliya: Hdate;
-  bmParasha: string;
+  bmparasha: string;
   relative?: Member | null; // optional to avoid infinite recursion on init
   yartzeits: Yartzeit[];
   since: Date;

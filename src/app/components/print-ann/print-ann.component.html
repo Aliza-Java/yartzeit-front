@@ -1,0 +1,25 @@
+<div class="table-wrapper" *ngIf="anniversaries?.length">
+    <table id="printTable" border="1" cellspacing="0" cellpadding="8">
+        <thead>
+            <tr>
+                <th class="title-head" colspan="2" style="text-align: center;">Anniversaries</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of anniversaries">
+                <td>{{a.day}} {{a.month}}</td>
+                <td>{{a.firstName}} & {{a.spouse}} {{a.lastName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Button -->
+<div class="button-wrapper">
+    <button (click)="downloadPDF()" class="px-4 py-2 text-white rounded">
+        Download as PDF
+    </button>
+</div>

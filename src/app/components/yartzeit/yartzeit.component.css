@@ -2,6 +2,10 @@
     margin-top: 25px
 }
 
+.date-section {
+    margin-right: 0px !important
+}
+
 .name-group {
     display: flex;
     flex-direction: column;
@@ -13,10 +17,7 @@
 .form-row {
     align-items: start;
     display: flex;
-}
-
-.small-label {
-    min-width: 100px;
+    width: 100%;
 }
 
 .section.justify-content-center {
@@ -25,14 +26,18 @@
     width: 100%;
 }
 
+.relationship-row {
+    flex: 1;
+}
+
 @media (max-width: 576px) {
     .flex-row {
         flex-direction: column;
     }
 
-    .small-label {
-        min-width: auto;
-        width: auto !important;
+    .form-label {
+        width: 100%;
+        min-width: 100px;
     }
 
     .relationship-row {
