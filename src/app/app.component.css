@@ -43,21 +43,22 @@
 }
 
 .spinner-text {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 20px;
     color: white;
     font-weight: bold;
+    z-index: 10000;
 }
 
 .local-spinner .ngx-spinner-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,13 +108,19 @@
 
     .version-note {
         display: none;
-    }             /* Optional: make it a bit faded */
+    }
+
+    /* Optional: make it a bit faded */
 }
+
 .version-note {
-    margin-top: auto;           /* Pushes to the bottom */
-    font-size: 0.8rem;          /* Small text */
-    color: var(--main-green);               /* White color */
+    margin-top: auto;
+    /* Pushes to the bottom */
+    font-size: 0.8rem;
+    /* Small text */
+    color: var(--main-green);
+    /* White color */
     text-align: center;
     padding: 8px 0;
-    opacity: 0.7;  
+    opacity: 0.7;
 }
