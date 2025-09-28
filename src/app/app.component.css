@@ -32,13 +32,11 @@
 
 .content {
     flex-grow: 1;
-    padding: 2rem;
     background: #F5F5F5;
     /*always, regardless of screen size*/
     flex: 1;
     overflow-y: auto;
     /* scroll only content */
-    padding: 1rem;
     position: relative;
 }
 
@@ -100,10 +98,6 @@
         border-left: none;
         /* underline active link */
         font-weight: bold;
-    }
-
-    .content {
-        padding: 0px;
     }
 
     .version-note {

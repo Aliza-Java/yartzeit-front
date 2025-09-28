@@ -3,8 +3,9 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    max-width: 100%;
     /* full viewport height */
-    background: #f7f9fb;
+    background: var(--faded-gray-bg);
 }
 
 .card {
