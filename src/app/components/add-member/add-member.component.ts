@@ -30,6 +30,7 @@ export class AddMemberComponent implements OnInit {
     memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
     addingYartzeit: boolean = false;
+    isSubmitting = false;
 
     private fb = inject(FormBuilder);
     private httpService = inject(HttpService);
@@ -209,6 +210,10 @@ export class AddMemberComponent implements OnInit {
     }
 
     onSubmit() {
+        if (this.isSubmitting)
+            return;
+
+        this.isSubmitting = true;   
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;

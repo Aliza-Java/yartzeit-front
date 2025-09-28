@@ -233,7 +233,7 @@
                     </button>
                 </div>
 
-                <button type="submit" class="btn btn-xl custom-btn d-flex align-items-center text-center">
+                <button type="submit" [disabled]="isSubmitting" class="btn btn-xl custom-btn d-flex align-items-center text-center">
                     <i class="bi bi-send me-2" width="20" height="20" fill="green"></i>
                     {{isEdit ? 'Click to save changes' : 'Click to save details'}}
                 </button>
