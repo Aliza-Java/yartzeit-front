@@ -92,6 +92,8 @@
                     </div>
                 </div>
 
+<!--
+
                 <hr>
 
                 <div class="big-section">
@@ -133,7 +135,6 @@
                             <input id="email" class="form-control" formControlName="email" placeholder="Email">
                         </div>
 
-                        <!-- Hebrew name and parents -->
                         <div class="form-row">
                             <label class="form-label" for="hebrewName">Hebrew Name:</label>
                             <input id="hebrewName" class="form-control" formControlName="hebrewName"
@@ -192,6 +193,7 @@
                 </div>
 
                 <hr>
+                -->
 
                 <div class="big-section yartzeits">
                     <h4 class="text-center">Yartzeits</h4>
@@ -226,7 +228,7 @@
                     </div>
 
                     <button *ngIf="!addingYartzeit" type="button"
-                        class="btn-add-second btn custom-btn d-flex align-items-center text-center" (click)="addYartzeit()">
+                        class="btn-add-ytz btn custom-btn d-flex align-items-center text-center" (click)="addYartzeit()">
                         <i class="bi bi-patch-plus me-2" width="20" height="20" fill="green"></i>
                         <span *ngIf="yartzeits.length > 0">Add Another Yartzeit</span>
                         <span *ngIf="yartzeits.length == 0">Add a Yartzeit</span>

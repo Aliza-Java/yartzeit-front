@@ -25,7 +25,7 @@ export class AddMemberComponent implements OnInit {
     @Input() member?: Member;
 
     isEdit: boolean = false;
-    thereIsSecondAdult = signal(false);
+    //thereIsSecondAdult = signal(false);
 
     memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
@@ -75,7 +75,7 @@ export class AddMemberComponent implements OnInit {
                 month: new FormControl(""),
                 engDate: new FormControl(null)
             }),
-            relative: this.fb.group({
+            /* relative: this.fb.group({
                 gender: ['MALE'],
                 firstName: [''],
                 lastName: [''],
@@ -102,16 +102,17 @@ export class AddMemberComponent implements OnInit {
                     engDate: new FormControl(null)
                 }),
             }), //In the form it says second adult
-            yartzeits: [[]] // Start with empty list
+ */            
+yartzeits: [[]] // Start with empty list
         });
 
         const member = this.shulService.selectedMember();
         if (member) {
             this.memberForm.patchValue(member);
             this.yartzeits = member.yartzeits || [];
-            if (member.relative) {
-                this.thereIsSecondAdult.set(true);
-            }
+            // if (member.relative) {
+            //     this.thereIsSecondAdult.set(true);
+            // }
         }
 
         //detectChanges() might be necessary for child components to update upon recieving edited member's details
@@ -205,9 +206,9 @@ export class AddMemberComponent implements OnInit {
         this.memberForm.patchValue({ relative: { bmparasha: parasha } });
     }
 
-    toggleRelative() {
-        this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
-    }
+    // toggleRelative() {
+    //     this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
+    // }
 
     onSubmit() {
         if (this.isSubmitting)
@@ -225,9 +226,9 @@ export class AddMemberComponent implements OnInit {
         if (member.relative && member.relative.gender == 'FEMALE') {
             member.relative.bmparasha = '';
         }
-        if (!this.thereIsSecondAdult()) {
-            member.relative = null;
-        }
+        // if (!this.thereIsSecondAdult()) {
+        //     member.relative = null;
+        // }
 
         this.httpService.saveMember(member, this.isEdit)
             .subscribe({
