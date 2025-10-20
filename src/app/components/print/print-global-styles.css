@@ -41,3 +41,38 @@ button:hover {
   background-color: white !important;
   color: var(--secondary-green) !important;
 }
+
+.buttons-line {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically if different heights */
+    gap: 12px;               /* space between buttons */
+    flex-wrap: wrap;         /* allow wrapping on very small screens */
+    margin: 1rem;
+}
+
+.button-wrapper {
+    /* keeps each button in its own box if you need extra spacing or styling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-wrapper button {
+    min-width: 160px;        /* optional: make buttons equal width */
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+}
+
+/* stack vertically on extra-small screens */
+@media (max-width: 576px) {
+    .flex-wrapper {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .button-wrapper button {
+        width: 100%;
+        min-width: 0;
+    }
+}
