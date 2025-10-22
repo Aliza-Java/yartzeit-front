@@ -13,14 +13,14 @@ export class HttpService {
 
     saveMember(member: any, editing: boolean): Observable<any> {
         if (editing)
-            return this.http.put(`${this.baseUrl}member`, member, { withCredentials: true });
+            return this.http.put(`${this.baseUrl}member/mem`, member, { withCredentials: true });
         else
             return this.http.post(`${this.baseUrl}member/mem`, member, { withCredentials: true });
     }
 
     saveSupporter(member: any, editing: boolean): Observable<any> {
         if (editing)
-            return this.http.put(`${this.baseUrl}member`, member, { withCredentials: true });
+            return this.http.put(`${this.baseUrl}member/sup`, member, { withCredentials: true });
         else
             return this.http.post(`${this.baseUrl}member/sup`, member, { withCredentials: true });
     }
