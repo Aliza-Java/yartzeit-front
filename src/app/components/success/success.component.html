@@ -1,7 +1,10 @@
 <div class="success-container">
-  <div class="success-card">
-    <div class="success-icon">✔</div>
-    <h1>Thank you for your submission</h1>
-    <p>We have received your information.</p>
-  </div>
+    <div class="success-card">
+        <div class="success-icon"><i class="bi bi-check2-circle"></i></div>
+        <h1>Thank you for your submission</h1>
+        <p>We have received your information.</p>
+        <button [routerLink]="['/add-' + type]" class="custom-btn">
+            <i class="bi bi-patch-plus me-2"></i> Submit another response
+        </button>
+    </div>
 </div>
