@@ -17,9 +17,9 @@ form {
 }
 
 .btn-add-ytz {
-    margin: 0px; 
+    margin: 0px;
     margin-bottom: 20px;
-    width: 100%; 
+    width: 100%;
     text-align: center;
     justify-content: center;
 }
@@ -157,8 +157,8 @@ app-yartzeit {
     }
 
     .big-section {
-    padding: 15px;
-}
+        padding: 15px;
+    }
 }
 
 .loading-overlay {
@@ -188,6 +188,29 @@ app-yartzeit {
 
 table {
     width: 100%;
+    border-bottom-width: none;
+    border-radius: 6px;
+}
+
+/* Round the outer corners only */
+.table thead tr:first-child th:first-child {
+    border-top-left-radius: 6px;
+}
+
+.table thead tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+td {
+    border-bottom-width: 0px;
 }
 
 .form-container {
@@ -197,7 +220,13 @@ table {
     width: 100%;
     width: 500px;
     max-width: 100%;
-    margin: 0 auto; 
+    margin: 0 auto;
+}
+
+.hebrew-name {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 576px) {
