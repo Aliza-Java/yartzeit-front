@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Member } from '../../models/member.model';
 import { HttpService } from '../../services/http.service';
 import { finalize } from 'rxjs';
