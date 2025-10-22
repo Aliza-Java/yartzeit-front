@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MembersListComponent } from './components/members-list/members-list.component';
+import { AddMemberComponent } from './components/add-member/add-member.component';
 
 export const routes: Routes = [
 
     { path: 'generate', loadComponent: () => import('./components/generate/generate.component').then(m => m.GenerateComponent) },
-    { path: 'list', loadComponent: () => import('./components/members-list/members-list.component').then(m => m.MembersListComponent) },
+    { path: 'mem-details', component: MembersListComponent, data: { title: 'Member Details', type: 'member' } },
+    { path: 'sup-details', component: MembersListComponent, data: { title: 'Supporter Details', type: 'supporter' } },
     {
         path: 'print', loadComponent: () => import('./components/print/print.component').then(m => m.PrintComponent),
         children: [
@@ -37,9 +40,10 @@ export const routes: Routes = [
         ]
     },
     { path: 'invite/:code', loadComponent: () => import('./components/invite/invite.component').then(m => m.InviteComponent) },
-    { path: 'success', loadComponent: () => import('./components/success/success.component').then(m => m.SuccessComponent) },
+    { path: 'success/:type', loadComponent: () => import('./components/success/success.component').then(m => m.SuccessComponent) },
     { path: 'error', loadComponent: () => import('./components/error/error.component').then(m => m.ErrorComponent) },
-    { path: 'member', loadComponent: () => import('./components/add-member/add-member.component').then(m => m.AddMemberComponent) },
+    { path: 'add-member', component: AddMemberComponent, data: { title: 'Member Details', type: 'member' } },
+    { path: 'add-supporter', component: AddMemberComponent, data: { title: 'Supporter Details', type: 'supporter' } },
     { path: '', redirectTo: 'generate', pathMatch: 'full' }, // default route
     { path: '**', redirectTo: 'generate', pathMatch: 'full' },
 ];

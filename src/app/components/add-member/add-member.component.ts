@@ -23,7 +23,8 @@ import { ShulService } from '../../services/shul.service';
 export class AddMemberComponent implements OnInit {
 
     @Input() member?: Member;
-
+    title = '';
+    type: 'member' | 'supporter' = 'member';
     isEdit: boolean = false;
     //thereIsSecondAdult = signal(false);
 
@@ -46,6 +47,11 @@ export class AddMemberComponent implements OnInit {
             if (this.isEdit) {
                 this.addingYartzeit = false; //start with showing yartzeits, can add more
             }
+        });
+
+        this.route.data.subscribe(data => {
+            this.title = data['title'];
+            this.type = data['type'];
         });
 
         this.memberForm = this.fb.group({
@@ -102,8 +108,8 @@ export class AddMemberComponent implements OnInit {
                     engDate: new FormControl(null)
                 }),
             }), //In the form it says second adult
- */            
-yartzeits: [[]] // Start with empty list
+ */
+            yartzeits: [[]] // Start with empty list
         });
 
         const member = this.shulService.selectedMember();
@@ -214,7 +220,7 @@ yartzeits: [[]] // Start with empty list
         if (this.isSubmitting)
             return;
 
-        this.isSubmitting = true;   
+        this.isSubmitting = true;
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;
@@ -230,19 +236,36 @@ yartzeits: [[]] // Start with empty list
         //     member.relative = null;
         // }
 
-        this.httpService.saveMember(member, this.isEdit)
-            .subscribe({
-                next: (response) => {
-                    console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
-                    this.shulService.clearSelectedMember();
-                    this.router.navigate(['/success']);
+        if (this.type == 'supporter') {
+            this.httpService.saveSupporter(member, this.isEdit)
+                .subscribe({
+                    next: (response) => {
+                        console.log(this.isEdit ? 'Supporter edited successfully' : 'Supporter added successfully', response);
+                        this.shulService.clearSelectedMember();
+                        this.router.navigate(['/success/supporter']);
 
-                },
-                error: (err) => {
-                    console.error(this.isEdit ? 'Error editing member' : 'Error adding member', err);
-                    this.router.navigate(['/error']);
-                }
-            });
+                    },
+                    error: (err) => {
+                        console.error(this.isEdit ? 'Error editing supporter' : 'Error adding supporter', err);
+                        this.router.navigate(['/error']);
+                    }
+                });
+        } else {
+
+            this.httpService.saveMember(member, this.isEdit)
+                .subscribe({
+                    next: (response) => {
+                        console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
+                        this.shulService.clearSelectedMember();
+                        this.router.navigate(['/success/member']);
+
+                    },
+                    error: (err) => {
+                        console.error(this.isEdit ? 'Error editing member' : 'Error adding member', err);
+                        this.router.navigate(['/error']);
+                    }
+                });
+        }
     }
 
     get dobDayValue() {

@@ -7,14 +7,16 @@
     <div class="row justify-content-center">
         <div class="form-container">
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
-                <h3 class="text-center">Member Registration Form</h3>
+                <h3 class="text-center">{{title}}</h3>
                 <div class="big-section section text-start form-container">
-                    <div class="form-row">
-                        <label class="form-label" for="gender">Please select:</label>
-                        <select class="form-control" formControlName="gender" id="gender">
-                            <option value="MALE">Male</option>
-                            <option value="FEMALE">Female</option>
-                        </select>
+                    <div *ngIf="type === 'member'">"
+                        <div class="form-row">
+                            <label class="form-label" for="gender">Please select:</label>
+                            <select class="form-control" formControlName="gender" id="gender">
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-row">
@@ -34,33 +36,35 @@
                         <input id="email" class="form-control" formControlName="email" placeholder="Email">
                     </div>
 
-                    <!-- Hebrew name and parents -->
-                    <div class="form-row">
-                        <label class="form-label" for="hebrewName">Hebrew Name:</label>
-                        <input id="hebrewName" class="form-control" formControlName="hebrewName"
-                            placeholder="Hebrew Name">
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label" for="fatherName">Father's name:</label>
-                        <input id="fatherName" class="form-control" formControlName="fatherName"
-                            placeholder="Father's Name">
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label" for="motherName">Mother's name:</label>
-                        <input id="motherName" class="form-control" formControlName="motherName"
-                            placeholder="Mother's Name">
-                    </div>
+                    <div *ngIf="type === 'member'" class="hebrew-name">
+                        <!-- Hebrew name and parents -->
+                        <div class="form-row">
+                            <label class="form-label" for="hebrewName">Hebrew Name:</label>
+                            <input id="hebrewName" class="form-control" formControlName="hebrewName"
+                                placeholder="Hebrew Name">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="fatherName">Father's name:</label>
+                            <input id="fatherName" class="form-control" formControlName="fatherName"
+                                placeholder="Father's Name">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="motherName">Mother's name:</label>
+                            <input id="motherName" class="form-control" formControlName="motherName"
+                                placeholder="Mother's Name">
+                        </div>
 
-                    <div formGroupName="dob" class="form-row baseline hdate-row">
-                        <label class="form-label">Date of birth:</label>
-                        <app-hdate (dateChange)="onDobDateChange($event)" [day]="memberForm.get('dob.day')?.value"
-                            [month]="memberForm.get('dob.month')?.value"
-                            [engDate]="memberForm.get('dob.engDate')?.value">
-                        </app-hdate>
+                        <div formGroupName="dob" class="form-row baseline hdate-row">
+                            <label class="form-label">Date of birth:</label>
+                            <app-hdate (dateChange)="onDobDateChange($event)" [day]="memberForm.get('dob.day')?.value"
+                                [month]="memberForm.get('dob.month')?.value"
+                                [engDate]="memberForm.get('dob.engDate')?.value">
+                            </app-hdate>
+                        </div>
                     </div>
                 </div>
 
-<div class="big-section yartzeits">
+                <div class="big-section yartzeits">
                     <h4 class="text-center">Yartzeits</h4>
                     <table *ngIf="yartzeits.length > 0" class="table text-center">
                         <thead>
@@ -85,8 +89,6 @@
                         </tbody>
                     </table>
 
-                    <hr>
-
                     <div *ngIf="addingYartzeit" class="text-start yartzeit-container">
                         <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)">
                         </app-yartzeit>
@@ -101,8 +103,7 @@
                     </button>
                 </div>
 
-
-                <div class="big-section section text-start form-container">
+                <div *ngIf="type === 'member'" class="big-section section text-start form-container">
                     @if (memberForm.get('gender')?.value == 'MALE') {
                     <div class="form-row">
                         <label class="form-label" for="bmparasha">Bar Mitzva Parasha:</label>
@@ -232,7 +233,7 @@
                 </div>
 
                 <hr>
-                -->                
+                -->
 
                 <button type="submit" [disabled]="isSubmitting"
                     class="btn btn-xl custom-btn d-flex align-items-center text-center">
