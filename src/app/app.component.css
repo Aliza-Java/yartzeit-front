@@ -32,7 +32,7 @@
 
 .content {
     flex-grow: 1;
-    background: #F5F5F5;
+    background: var(--faded-gray-bg);
     /*always, regardless of screen size*/
     flex: 1;
     overflow-y: auto;

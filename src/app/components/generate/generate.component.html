@@ -1,12 +1,23 @@
 <div class="container">
   <div class="card">
-       <button class="btn" (click)="generate()">Generate Link</button>
+       <button class="btn" (click)="getMemberLink()">Get Member Link</button>
 
-    <div *ngIf="generatedLink" class="result">
-      <span class="link-text">{{ generatedLink }}</span>
-      <button class="copy-btn" (click)="copyToClipboard()">Copy</button>
+    <div *ngIf="memberLink" class="result">
+      <span class="link-text">{{ memberLink }}</span>
+      <button class="copy-btn" (click)="copyToClipboard('member')">Copy</button>
     </div>
 
-    <div *ngIf="copied" class="copied-msg">Copied!</div>
+    <div *ngIf="memberCopied" class="copied-msg">Copied!</div>
+  </div>
+
+  <div class="card">
+       <button class="btn" (click)="getSupporterLink()">Get Supporter Link</button>
+
+    <div *ngIf="supporterLink" class="result">
+      <span class="link-text">{{ supporterLink }}</span>
+      <button class="copy-btn" (click)="copyToClipboard('supporter')">Copy</button>
+    </div>
+
+    <div *ngIf="supporterCopied" class="copied-msg">Copied!</div>
   </div>
 </div>

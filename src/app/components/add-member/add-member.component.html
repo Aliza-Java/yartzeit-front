@@ -9,7 +9,7 @@
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
                 <h3 class="text-center">{{title}}</h3>
                 <div class="big-section section text-start form-container">
-                    <div *ngIf="type === 'member'">"
+                    <div *ngIf="type === 'member'">
                         <div class="form-row">
                             <label class="form-label" for="gender">Please select:</label>
                             <select class="form-control" formControlName="gender" id="gender">
