@@ -2,12 +2,29 @@
     <!-- Sidebar -->
     <nav class="sidebar" *ngIf="showSidebar && sidebarReady">
         <ul>
-            <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
-            <li><a routerLink="/add-member" routerLinkActive="active">Add Member</a></li>
-            <li><a routerLink="/add-supporter" routerLinkActive="active">Add Supporter</a></li>
-            <li><a routerLink="/mem-details" routerLinkActive="active">Members List</a></li>
-            <li><a routerLink="/sup-details" routerLinkActive="active">Supporter List</a></li>
-            <li><a routerLink="/print" routerLinkActive="active">Print Dates</a></li>
+            <li><a class="main-menu-item" routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
+            
+            <li class="nav-submenu">
+                <details>
+                    <summary class="submenu-summary">Submit New</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="/add-member" routerLinkActive="active">Member</a></li>
+                        <li class="submenu-item"><a routerLink="/add-supporter" routerLinkActive="active">Supporter</a></li>
+                    </ul>
+                </details>
+            </li>
+
+            <li class="nav-submenu">
+                <details>
+                    <summary class="submenu-summary">List All</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="/details-mem" routerLinkActive="active">Members</a></li>
+                        <li class="submenu-item"><a routerLink="/details-sup" routerLinkActive="active">Supporters</a></li>
+                    </ul>
+                </details>
+            </li>
+
+            <li><a class="main-menu-item" routerLink="/print" routerLinkActive="active">Print Dates</a></li>
         </ul>
         <!--<div class="version-note">sep20</div>-->
     </nav>

@@ -17,8 +17,8 @@ export const routes: Routes = [
     { path: 'add-member', component: AddMemberComponent, data: { title: 'Member Details', type: 'member'} },
     { path: 'add-supporter', component: AddMemberComponent, data: { title: 'Supporter Details', type: 'supporter'} },
 
-    { path: 'mem-details', component: MembersListComponent, data: { title: 'Member Details', type: 'member' } },
-    { path: 'sup-details', component: MembersListComponent, data: { title: 'Supporter Details', type: 'supporter' } },
+    { path: 'details-mem', component: MembersListComponent, data: { title: 'Member Details', type: 'member' } },
+    { path: 'details-sup', component: MembersListComponent, data: { title: 'Supporter Details', type: 'supporter' } },
     {
         path: 'print', loadComponent: () => import('./components/print/print.component').then(m => m.PrintComponent),
         children: [
