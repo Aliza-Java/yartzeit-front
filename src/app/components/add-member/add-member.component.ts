@@ -246,8 +246,9 @@ export class AddMemberComponent implements OnInit {
 
                     },
                     error: (err) => {
-                        console.error(this.isEdit ? 'Error editing supporter' : 'Error adding supporter', err);
-                        this.router.navigate(['/error']);
+                        var errorMessage: string = this.isEdit ? 'Error editing supporter' : 'Error adding supporter';
+                        console.error(errorMessage, err);
+                        this.router.navigate(['/error'],  { queryParams: { text: errorMessage}});
                     }
                 });
         } else {
@@ -261,8 +262,9 @@ export class AddMemberComponent implements OnInit {
 
                     },
                     error: (err) => {
-                        console.error(this.isEdit ? 'Error editing member' : 'Error adding member', err);
-                        this.router.navigate(['/error']);
+                        var errorMessage: string = this.isEdit ? 'Error editing member' : 'Error adding member';
+                        console.error(errorMessage, err);
+                        this.router.navigate(['/error'], { queryParams: { text: errorMessage}});
                     }
                 });
         }

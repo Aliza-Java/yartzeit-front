@@ -21,19 +21,21 @@ export class InviteComponent {
         @Inject(PLATFORM_ID) private platformId: Object
     ) { }
 
-    ngOnInit() {
-        const code = this.route.snapshot.paramMap.get('code') || '';
-        if (isPlatformBrowser(this.platformId)) { //avoid routing on server side (because then routes twice)
+    //todo - this is currently not in use.  Delete in future
 
-            this.httpService.verifyCode(code).subscribe({
-                next: () => {
-                    this.shulService.isGuest = true;
-                    this.router.navigate(['member'], { queryParams: { edit: 'false' } });
-                },
-                error: () => {
-                    this.router.navigate(['error'], { queryParams: { text: "the link is malformed or invalid" } });
-                }
-            });
-        }
-    }
+    // ngOnInit() {
+    //     const code = this.route.snapshot.paramMap.get('code') || '';
+    //     if (isPlatformBrowser(this.platformId)) { //avoid routing on server side (because then routes twice)
+
+    //         this.httpService.verifyCode(code).subscribe({
+    //             next: () => {
+    //                 this.shulService.isAdmin = false;
+    //                 this.router.navigate(['member'], { queryParams: { edit: 'false' } });
+    //             },
+    //             error: () => {
+    //                 this.router.navigate(['error'], { queryParams: { text: "the link is malformed or invalid" } });
+    //             }
+    //         });
+    //     }
+    // }
 }

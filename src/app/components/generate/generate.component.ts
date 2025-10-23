@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ShulService } from '../../services/shul.service';
 
 @Component({
     selector: 'app-generate',
@@ -17,7 +17,9 @@ export class GenerateComponent {
     memberCopied: boolean = false;
     supporterCopied: boolean = false;
 
-    constructor(private httpService: HttpService, private router: Router) { }
+    constructor(private httpService: HttpService, private shulService: ShulService) {
+                this.shulService.isAdmin = true;
+    }
 
     getMemberLink() {
         this.memberLink = this.httpService.memberLink;

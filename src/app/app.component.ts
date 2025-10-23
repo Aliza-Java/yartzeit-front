@@ -19,7 +19,7 @@ export class AppComponent {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 // Only show sidebar if not on /invite and not a guest
-                this.showSidebar = !this.router.url.startsWith('/invite') && !this.shulService.isGuest;
+                this.showSidebar = (!this.router.url.startsWith('/invite')) && this.shulService.isAdmin;
                 this.sidebarReady = true;
             }
         });
