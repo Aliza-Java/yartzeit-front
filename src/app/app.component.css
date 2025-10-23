@@ -30,10 +30,6 @@
     padding-left: 8px;
 }
 
-.submenu-list {
-    margin-left: 2rem;
-}
-
 /* slightly larger main menu text */
 .sidebar a.main-menu-item,
 .sidebar .submenu-summary {
@@ -41,17 +37,18 @@
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 1.2rem;
-    /* adjust as needed */
     color: #fff;
+}
+
+.submenu-list {
+    margin-left: 2rem;
 }
 
 .content {
     flex-grow: 1;
-    background: var(--faded-gray-bg);
-    /*always, regardless of screen size*/
     flex: 1;
+    background: var(--faded-gray-bg);
     overflow-y: auto;
-    /* scroll only content */
     position: relative;
 }
 
@@ -78,64 +75,20 @@
     z-index: 9999;
 }
 
-/* 🔽 Mobile layout adjustments */
-@media (max-width: 768px) {
-    .app-container {
-        flex-direction: column;
-        /* stack vertically */
-    }
-
-    .sidebar {
-        width: 100%;
-        padding: 0.5rem;
-    }
-
-    .sidebar ul {
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .sidebar li {
-        margin: 0;
-        /* remove vertical spacing */
-    }
-
-    .sidebar a {
-        text-align: center;
-        display: block;
-        padding: 0.5rem 1rem;
-        border-left: none;
-        /* remove left border on mobile */
-    }
-
-    .sidebar a.active {
-        border-bottom: 3px solid var(--misty-rose-light);
-        border-left: none;
-        /* underline active link */
-        font-weight: bold;
-    }
-
-    .version-note {
-        display: none;
-    }
-
-    /* Optional: make it a bit faded */
-}
-
 .version-note {
     margin-top: auto;
-    /* Pushes to the bottom */
     font-size: 0.8rem;
-    /* Small text */
     color: var(--main-green);
-    /* White color */
     text-align: center;
     padding: 8px 0;
     opacity: 0.7;
 }
 
-
 /* submenu in sidebar */
+.nav-submenu {
+    align-self: flex-start;
+}
+
 .nav-submenu details {
     width: 100%;
 }
@@ -166,7 +119,7 @@
     opacity: .8;
 }
 
-nav .nav-submenu details[open]>.submenu-summary::after {
+nav .nav-submenu details[open] > .submenu-summary::after {
     transform: rotate(90deg);
 }
 
@@ -174,7 +127,7 @@ nav .nav-submenu details[open]>.submenu-summary::after {
 .sub-list {
     list-style: none;
     margin: 0;
-    padding: 0 0 0 0;
+    padding: 0;
     display: none;
 }
 
@@ -182,7 +135,7 @@ nav .nav-submenu details[open] .sub-list {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    padding: 0 0 0 0.5rem;
+    padding-left: 0.5rem;
 }
 
 /* sub-item link styling */
@@ -194,7 +147,45 @@ nav .nav-submenu details[open] .sub-list {
     border-radius: 4px;
 }
 
-/* Responsive: on small screens show subtabs horizontally under the main menu item */
+/* 🔽 Responsive: 768px */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .sidebar ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .sidebar li {
+        margin: 0;
+    }
+
+    .sidebar a {
+        text-align: center;
+        display: block;
+        padding: 0.5rem 1rem;
+        border-left: none;
+    }
+
+    .sidebar a.active {
+        border-bottom: 3px solid var(--misty-rose-light);
+        border-left: none;
+        font-weight: bold;
+    }
+
+    .version-note {
+        display: none;
+    }
+}
+
+/* 🔽 Responsive: 576px */
 @media (max-width: 576px) {
     nav .nav-submenu details[open] .sub-list {
         flex-direction: row;
@@ -206,9 +197,4 @@ nav .nav-submenu details[open] .sub-list {
     .sub-list a {
         padding: 0.35rem 0.6rem;
     }
-}
-
-/* Ensure submenu doesn't inherit unwanted centering from sidebar layout */
-.nav-submenu {
-    align-self: flex-start;
 }
