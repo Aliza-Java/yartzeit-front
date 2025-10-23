@@ -5,6 +5,7 @@
             <span class="my-tooltip-text">Hebrew date is calculated automatically by the English date </span>
         </span>
     </label>
+    <div *ngIf="checkDateAlert" class="check-date-alert">Is this the correct Hebrew date?</div>
     <div class="hebrew-date-group">
         <div id="hebrew-date" class="date-section hebrew-date">
             <select id="hebrew-day" class="form-control" [(ngModel)]="day" (ngModelChange)="onDayChange($event)">
@@ -23,12 +24,6 @@
         </div>
     </div>
 
-    <div class="helper-text">(Can be calculated from English date)</div>
-
-    <!-- Divider 
-    <div class="divider"></div>
-    -->
-
     <!-- English date section -->
     <div class="english-date-group">
         <div class="d-flex align-items-center eng-date-section form-pair">
@@ -38,4 +33,5 @@
             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">📅</button>
         </div>
     </div>
+    <div class="helper-text">Select an English date to automatically set the Hebrew date</div>
 </div>
