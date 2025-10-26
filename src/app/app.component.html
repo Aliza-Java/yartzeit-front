@@ -2,31 +2,44 @@
     <!-- Sidebar -->
     <nav class="sidebar" *ngIf="showSidebar && sidebarReady">
         <ul>
-            <li><a class="main-menu-item" routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
-            
-            <li class="nav-submenu">
-                <details>
+            <li><a (click)="closeAllSubmenus()" class="main-menu-item" routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
+
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
                     <summary class="submenu-summary">Submit New</summary>
                     <ul class="submenu-list">
-                        <li class="submenu-item"><a routerLink="/add-member" routerLinkActive="active">Member</a></li>
-                        <li class="submenu-item"><a routerLink="/add-supporter" routerLinkActive="active">Supporter</a></li>
+                        <li class="submenu-item"><a routerLink="/add-member">Member</a></li>
+                        <li class="submenu-item"><a routerLink="/add-supporter">Supporter</a>
+                        </li>
                     </ul>
                 </details>
             </li>
 
-            <li class="nav-submenu">
-                <details>
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
                     <summary class="submenu-summary">List All</summary>
                     <ul class="submenu-list">
-                        <li class="submenu-item"><a routerLink="/details-mem" routerLinkActive="active">Members</a></li>
-                        <li class="submenu-item"><a routerLink="/details-sup" routerLinkActive="active">Supporters</a></li>
+                        <li class="submenu-item"><a routerLink="/details-mem">Members</a></li>
+                        <li class="submenu-item"><a routerLink="/details-sup">Supporters</a>
+                        </li>
                     </ul>
                 </details>
             </li>
 
-            <li><a class="main-menu-item" routerLink="/print" routerLinkActive="active">Print Dates</a></li>
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
+                    <summary class="submenu-summary">Print Dates</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="print-yartzeits">Yartzeits</a></li>
+                        <li class="submenu-item"><a routerLink="print-ann">Anniversaries</a></li>
+                        <li class="submenu-item"><a routerLink="print-parashot">Bar-Mitzva
+                                Parashot</a></li>
+                        <!-- <li class="submenu-item"><a routerLink="combined" routerLinkActive="active">Combined</a></li> -->
+                    </ul>
+                </details>
+            </li>
+
         </ul>
-        <!--<div class="version-note">sep20</div>-->
     </nav>
 
     <!-- Main Content -->

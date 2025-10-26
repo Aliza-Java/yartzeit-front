@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
-import { NavigationEnd, Router, RouterModule, RouterOutlet } from "@angular/router";
+import { NavigationEnd, NavigationStart, Router, RouterModule, RouterOutlet } from "@angular/router";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ShulService } from "./services/shul.service";
 import { CommonModule } from "@angular/common";
+import { filter } from "rxjs";
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -23,5 +24,25 @@ export class AppComponent {
                 this.sidebarReady = true;
             }
         });
+
+        this.router.events
+            .pipe(filter(e => e instanceof NavigationStart))
+            .subscribe(() => {
+                this.closeAllSubmenus();
+            });
     }
+
+    onToggle(event: Event): void {
+        const clicked = event.target as HTMLDetailsElement;
+        if (!clicked.open) return;
+        this.closeAllSubmenus(clicked);
+    }
+
+    closeAllSubmenus(except?: HTMLDetailsElement): void {
+        const allDetails = document.querySelectorAll('details');
+        allDetails.forEach(d => {
+            if (d !== except) d.removeAttribute('open');
+        });
+    }
+
 }

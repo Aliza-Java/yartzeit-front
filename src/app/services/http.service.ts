@@ -9,6 +9,12 @@ export class HttpService {
     //private baseUrl = 'http://localhost:8080/shul/'; // local
     private baseUrl = 'https://api.elcmembers.online/shul/'; // production
 
+    private client = "https://elcmembers.online";
+    //private client = "http://localhost:4200";
+
+    supporterLink = `${this.client}/invite-supporter`;
+    memberLink = `${this.client}/invite-member`;
+
     constructor(private http: HttpClient) { }
 
     saveMember(member: any, editing: boolean): Observable<any> {

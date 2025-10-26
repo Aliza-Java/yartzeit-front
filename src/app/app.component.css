@@ -4,7 +4,7 @@
 }
 
 .sidebar {
-    width: 200px;
+    width: 240px;
     background: var(--secondary-green);
     color: white;
     padding: 1rem;
@@ -19,15 +19,22 @@
     margin: 1rem 0;
 }
 
+.submenu-item {
+    background-color: var(--main-green);
+    border-radius: 4px;
+    text-align: left;
+    padding: 0.5rem;
+}
+
 .sidebar a {
     color: white;
     text-decoration: none;
 }
 
-.sidebar a.active {
+.nav-submenu.active>details>.submenu-summary,
+.main-menu-item.active {
     font-weight: 600;
     border-left: 4px solid var(--misty-rose-light);
-    padding-left: 8px;
 }
 
 /* slightly larger main menu text */
@@ -42,6 +49,7 @@
 
 .submenu-list {
     margin-left: 2rem;
+    flex-direction: column;
 }
 
 .content {
@@ -90,10 +98,10 @@
 }
 
 .nav-submenu details {
-    width: 100%;
+    width: fit-content;
 }
 
-.submenu-summary {
+.submenu-summary, .main-menu-item {
     list-style: none;
     padding: 0.6rem 1rem;
     cursor: pointer;
@@ -115,12 +123,13 @@
 .submenu-summary::after {
     content: "▸";
     transform: rotate(0deg);
+    display: inline-block;
     transition: transform .18s ease;
     opacity: .8;
 }
 
-nav .nav-submenu details[open] > .submenu-summary::after {
-    transform: rotate(90deg);
+details[open] .submenu-summary::after {
+    transform: rotate(90deg) !important;
 }
 
 /* sub-list hidden by default, shown when details open */
@@ -138,14 +147,6 @@ nav .nav-submenu details[open] .sub-list {
     padding-left: 0.5rem;
 }
 
-/* sub-item link styling */
-.sub-list a {
-    display: block;
-    padding: 0.4rem 0.8rem;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 4px;
-}
 
 /* 🔽 Responsive: 768px */
 @media (max-width: 768px) {
@@ -153,48 +154,138 @@ nav .nav-submenu details[open] .sub-list {
         flex-direction: column;
     }
 
+    .sidebar>ul>li {
+        flex: 1 1 0;
+        min-width: 0;
+        /* crucial: allow content to shrink below its intrinsic width */
+        box-sizing: border-box;
+    }
+
     .sidebar {
         width: 100%;
         padding: 0.5rem;
     }
 
-    .sidebar ul {
+    .sidebar>ul {
         display: flex;
-        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    /* let long summaries/links wrap instead of expanding the menu */
+    .submenu-summary,
+    .main-menu-item,
+    .sidebar a {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        min-width: 0;
+    }
+
+    /* stack submenu items vertically on small screens */
+    ul.submenu-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.25rem;
+    }
+
+    /* prevent details fit-content from forcing overflow on mobile */
+    .nav-submenu details,
+    .nav-submenu details[open] {
+        width: 100%;
+    }
+
+    .nav-submenu details[open] {
+        position: relative;
+    }
+
+    ul.submenu-list {
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .submenu-list {
+        align-items: flex-start;
+        /* left align children */
+        justify-content: flex-start;
+        margin-left: 0px;
     }
 
     .sidebar li {
         margin: 0;
     }
 
+    li>a {
+        /* only a's that are direct decendents of li */
+        text-align: left;
+    }
+
     .sidebar a {
         text-align: center;
         display: block;
-        padding: 0.5rem 1rem;
         border-left: none;
     }
 
-    .sidebar a.active {
+    .nav-submenu.active>details>.submenu-summary,
+    .main-menu-item.active {
+        font-weight: bold;
         border-bottom: 3px solid var(--misty-rose-light);
         border-left: none;
-        font-weight: bold;
+    }
+
+    /* ensure submenu items stack vertically under the main menu when sidebar moves on top */
+    nav .nav-submenu,
+    nav .nav-submenu details[open] {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding-left: 0;
+        width: 100%;
+        align-items: flex-start;
+        /* left align children */
+        justify-content: flex-start;
     }
 
     .version-note {
         display: none;
     }
+
+    .submenu-summary,
+    .main-menu-item {
+        margin: 0px;
+    }
+
+    .main-menu-item {
+        text-align: left !important;
+    }
 }
 
 /* 🔽 Responsive: 576px */
 @media (max-width: 576px) {
+
+    /* keep submenu vertical on extra-small screens as well */
     nav .nav-submenu details[open] .sub-list {
-        flex-direction: row;
+        flex-direction: column;
         gap: 0.5rem;
         padding-left: 0;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .sub-list a {
+        padding: 0.35rem 0.6rem;
+    }
+
+    .sidebar a.main-menu-item,
+    .sidebar .submenu-summary {
+        font-size: 1rem;
+        color: #fff;
+        margin: 0px;
+    }
+
+    .submenu-item {
         padding: 0.35rem 0.6rem;
     }
 }
