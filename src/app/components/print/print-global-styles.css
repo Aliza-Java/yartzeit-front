@@ -1,4 +1,3 @@
-
 .table-wrapper {
     display: flex;
     justify-content: center;
@@ -34,21 +33,25 @@ button:hover {
 }
 
 .title-head {
-  caption-side: top;
-  font-weight: bold;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  text-align: center;
-  background-color: white !important;
-  color: var(--secondary-green) !important;
+    caption-side: top;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: white !important;
+    color: var(--secondary-green) !important;
 }
 
 .buttons-line {
     display: flex;
-    justify-content: center; /* center horizontally */
-    align-items: center;     /* center vertically if different heights */
-    gap: 12px;               /* space between buttons */
-    flex-wrap: wrap;         /* allow wrapping on very small screens */
+    justify-content: center;
+    /* center horizontally */
+    align-items: center;
+    /* center vertically if different heights */
+    gap: 12px;
+    /* space between buttons */
+    flex-wrap: wrap;
+    /* allow wrapping on very small screens */
     margin: 1rem;
 }
 
@@ -60,7 +63,8 @@ button:hover {
 }
 
 .button-wrapper button {
-    min-width: 160px;        /* optional: make buttons equal width */
+    min-width: 160px;
+    /* optional: make buttons equal width */
     padding: 0.5rem 1rem;
     box-sizing: border-box;
 }
@@ -75,5 +79,12 @@ button:hover {
     .button-wrapper button {
         width: 100%;
         min-width: 0;
+    }
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: normal;
     }
 }
