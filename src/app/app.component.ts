@@ -40,9 +40,12 @@ export class AppComponent {
 
     closeAllSubmenus(except?: HTMLDetailsElement): void {
         const allDetails = this.document.querySelectorAll('details');
-        allDetails.forEach(d => {
-            if (d !== except) d.removeAttribute('open');
-        });
+        if (!(allDetails instanceof NodeList)) { //i.e. no sidebar menu to iterate on
+            return;
+        } for (const d of allDetails) {
+            if (d !== except)
+                d.removeAttribute('open');
+        }
     }
 
 }
