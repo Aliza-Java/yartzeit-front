@@ -127,7 +127,7 @@
                     </table>
 
                     <div *ngIf="addingYartzeit" class="text-start yartzeit-container">
-                        <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)">
+                        <app-yartzeit (pushYartzeit)="onYartzeitAdded($event)" (closeYartzeit)="onCloseYartzeit()">
                         </app-yartzeit>
                     </div>
 

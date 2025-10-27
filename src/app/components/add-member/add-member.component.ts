@@ -142,6 +142,10 @@ export class AddMemberComponent implements OnInit {
         this.addingYartzeit = false;
     }
 
+    onCloseYartzeit() {
+        this.addingYartzeit = false;
+    }
+
     removeYartzeit(y: Yartzeit) {
         this.yartzeits = this.yartzeits.filter(item => item !== y);
     }

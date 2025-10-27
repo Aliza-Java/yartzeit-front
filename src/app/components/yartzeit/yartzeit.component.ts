@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class YartzeitComponent {
     @Output() pushYartzeit = new EventEmitter<Yartzeit>();
+    @Output() closeYartzeit = new EventEmitter<void>();
     error: boolean = false;
 
     name1: string = '';
@@ -53,5 +54,9 @@ export class YartzeitComponent {
         } else {
             this.error = true;
         }
+    }
+
+    close():void {
+        this.closeYartzeit.emit();
     }
 }
