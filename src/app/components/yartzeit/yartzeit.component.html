@@ -5,7 +5,7 @@
 }
 
 <div class="section form-row baseline align-items-center flex-wrap">
-    <label class="form-label">Name: </label>
+    <label class="form-label">Name: *</label>
     <div class="name-group">
         <input class="form-control grow" [(ngModel)]="name1" placeholder="Name">
         <select class="form-select grow" [(ngModel)]="benbat">
@@ -16,13 +16,13 @@
     </div>
 
     <div class="section date-section form-row me-3 mb-3 mb-md-0 flex-row">
-        <label class="form-label">Date of passing: </label>
+        <label class="form-label">Date of passing: *</label>
         <app-hdate [day]="hDate.day" [month]="hDate.month" [engDate]="hDate.engDate" (dateChange)="updateDate($event)">
         </app-hdate>
     </div>
 
     <div class="section d-flex flex-row align-items-center baseline form-row">
-        <label class="form-label" for="otherRelationship">Relationship:</label>
+        <label class="form-label" for="otherRelationship">Relationship: *</label>
         <div class="relationship-row">
             <select class="form-control me-3" [(ngModel)]="relationship">
                 <option disabled value="">Select Relationship</option>
