@@ -45,9 +45,13 @@
         </div>
     </div>
 
-    <div class="d-flex section justify-content-center">
-        <button type="button" class="btn custom-btn align-items-center" (click)="addYartzeit()">
-            <i class="bi bi-check-circle me-2" width="20" height="20" fill="green"></i>
-            Add This Yartzeit
-        </button>
+    <div class="submit-section">
+    <div class="submit-text">
+        <i class="bi bi-info-circle me-2"></i>
+        After filling in all Yartzeit fields, click the button below to save the Yartzeit
     </div>
+    <button type="button" class="btn custom-btn pulse-button" (click)="addYartzeit()">
+        <i class="bi bi-check-circle me-2" width="20" height="20" fill="green"></i>
+        Add This Yartzeit
+    </button>
+</div>

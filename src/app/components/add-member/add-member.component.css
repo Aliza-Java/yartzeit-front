@@ -13,7 +13,6 @@ h3 {
 
 button.invalid-submit {
     border: 3px solid var(--alert);
-    /* eye-catching red, not harsh */
     box-shadow: 0 0 6px rgba(255, 92, 92, 0.4);
     background-color: var(--misty-rose-dark);
     color: var(--secondary-green);
