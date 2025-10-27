@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, Input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Member } from '../../models/member.model';
@@ -32,6 +32,8 @@ export class AddMemberComponent implements OnInit {
     yartzeits: Yartzeit[] = [];
     addingYartzeit: boolean = false;
     isSubmitting = false;
+    submitted: boolean = false;
+    showValidationError: boolean = false;
 
     private fb = inject(FormBuilder);
     private httpService = inject(HttpService);
@@ -54,12 +56,18 @@ export class AddMemberComponent implements OnInit {
             this.type = data['type'];
         });
 
+        this.memberForm.valueChanges.subscribe(() => {
+            if (this.memberForm.valid) {
+                this.showValidationError = false;
+            }
+        });
+
         this.memberForm = this.fb.group({
             gender: ['MALE'],
-            firstName: [''],
-            lastName: [''],
-            phone: [''],
-            email: [''],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            phone: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             hebrewName: [''],
             fatherName: [''],
             motherName: [''],
@@ -220,6 +228,19 @@ export class AddMemberComponent implements OnInit {
         if (this.isSubmitting)
             return;
 
+        this.submitted = true;
+
+        if (!this.checkIfFormValid()) {
+            this.showValidationError = true;
+            this.memberForm.markAllAsTouched();
+
+            const firstInvalid = document.querySelector('.ng-invalid');
+            firstInvalid?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        this.showValidationError = false;
+
         this.isSubmitting = true;
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
@@ -248,7 +269,7 @@ export class AddMemberComponent implements OnInit {
                     error: (err) => {
                         var errorMessage: string = this.isEdit ? 'Error editing supporter' : 'Error adding supporter';
                         console.error(errorMessage, err);
-                        this.router.navigate(['/error'],  { queryParams: { text: errorMessage}});
+                        this.router.navigate(['/error'], { queryParams: { text: errorMessage } });
                     }
                 });
         } else {
@@ -264,10 +285,37 @@ export class AddMemberComponent implements OnInit {
                     error: (err) => {
                         var errorMessage: string = this.isEdit ? 'Error editing member' : 'Error adding member';
                         console.error(errorMessage, err);
-                        this.router.navigate(['/error'], { queryParams: { text: errorMessage}});
+                        this.router.navigate(['/error'], { queryParams: { text: errorMessage } });
                     }
                 });
         }
+    }
+
+    checkIfFormValid(): boolean {
+        if (this.memberForm.get('bmparasha')?.value && this.memberForm.get('hebrewName')?.value.trim() == '') {
+            this.memberForm.get('hebrewName')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('hebrewName')?.setErrors(null);
+        }
+
+        if (this.memberForm.get('bmparasha')?.value && this.memberForm.get('fatherName')?.value.trim() == '') {
+            this.memberForm.get('fatherName')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('fatherName')?.setErrors(null);
+        }
+
+        if (this.memberForm.get('anniversary.day')?.value > 0
+            && this.memberForm.get('anniversary.month')?.value != ''
+            && this.memberForm.get('spouse')?.value.trim() == '') {
+            this.memberForm.get('spouse')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('spouse')?.setErrors(null);
+        }
+
+        return this.memberForm.valid;
     }
 
     get dobDayValue() {

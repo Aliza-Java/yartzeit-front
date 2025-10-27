@@ -9,6 +9,7 @@
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
                 <h3 class="text-center">{{title}}</h3>
                 <div class="big-section section text-start form-container">
+                    <h5>Information with * is required</h5>
                     <div *ngIf="type === 'member'">
                         <div class="form-row">
                             <label class="form-label" for="gender">Please select:</label>
@@ -20,33 +21,69 @@
                     </div>
 
                     <div class="form-row">
-                        <label class="form-label" for="firstName">First Name:</label>
-                        <input id="firstName" class="form-control" formControlName="firstName" placeholder="First Name">
+                        <label class="form-label" for="firstName">First Name: *</label>
+                        <div class="required-input">
+                            <input id="firstName" class="form-control" formControlName="firstName"
+                                placeholder="First Name">
+                            <div *ngIf="submitted && memberForm.get('firstName')?.invalid" class="error">
+                                First Name is required
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-row">
-                        <label class="form-label" for="lastName">Last Name:</label>
-                        <input id="lastName" class="form-control" formControlName="lastName" placeholder="Last Name">
+                        <label class="form-label" for="lastName">Last Name: *</label>
+                        <div class="required-input">
+                            <input id="lastName" class="form-control" formControlName="lastName"
+                                placeholder="Last Name">
+                            <div *ngIf="submitted && memberForm.get('lastName')?.invalid" class="error">
+                                Last Name is required
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-row">
-                        <label class="form-label" for="phone">Phone:</label>
-                        <input id="phone" class="form-control" formControlName="phone" placeholder="Phone">
+                        <label class="form-label" for="phone">Phone: *</label>
+                        <div class="required-input">
+                            <input id="phone" class="form-control" formControlName="phone" placeholder="Phone">
+                            <div *ngIf="submitted && memberForm.get('phone')?.invalid" class="error">
+                                Phone number is required
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-row">
-                        <label class="form-label" for="email">Email:</label>
-                        <input id="email" class="form-control" formControlName="email" placeholder="Email">
+                        <label class="form-label" for="email">Email: *</label>
+                        <div class="required-input">
+                            <input id="email" class="form-control" formControlName="email" placeholder="Email">
+                            <div *ngIf="submitted && memberForm.get('email')?.invalid" class="error">
+                                <span *ngIf="memberForm.get('email')?.errors?.['required']">Email is required</span>
+                                <span *ngIf="memberForm.get('email')?.errors?.['email']">Email is invalid</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div *ngIf="type === 'member'" class="hebrew-name">
                         <!-- Hebrew name and parents -->
                         <div class="form-row">
                             <label class="form-label" for="hebrewName">Hebrew Name:</label>
-                            <input id="hebrewName" class="form-control" formControlName="hebrewName"
-                                placeholder="Hebrew Name">
+                            <div class="required-input">
+                                <input id="hebrewName" class="form-control" formControlName="hebrewName"
+                                    placeholder="Hebrew Name">
+                                <div *ngIf="submitted && memberForm.get('hebrewName')?.invalid" class="error">
+                                    If Bar Mitzva Parasha is selected, Hebrew Name is required
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
                             <label class="form-label" for="fatherName">Father's name:</label>
-                            <input id="fatherName" class="form-control" formControlName="fatherName"
-                                placeholder="Father's Name">
+                            <div class="required-input">
+                                <input id="fatherName" class="form-control" formControlName="fatherName"
+                                    placeholder="Father's Name">
+                                <div *ngIf="submitted && memberForm.get('fatherName')?.invalid" class="error">
+                                    If Bar Mitzva Parasha is selected, Father's Hebrew Name is required
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
                             <label class="form-label" for="motherName">Mother's name:</label>
@@ -121,7 +158,13 @@
 
                     <div class="form-row">
                         <label class="form-label" for="spouse">Spouse:</label>
-                        <input id="spouse" class="form-control" formControlName="spouse" placeholder="Spouse's name">
+                        <div class="required-input">
+                            <input id="spouse" class="form-control" formControlName="spouse"
+                                placeholder="Spouse's name">
+                            <div *ngIf="submitted && memberForm.get('spouse')?.invalid" class="error">
+                                If Anniversary is filled, Spouse's name is required
+                            </div>
+                        </div>
                     </div>
 
                     <div formGroupName="aliya" class="form-row baseline hdate-row">
@@ -235,12 +278,11 @@
                 <hr>
                 -->
 
-                <button type="submit" [disabled]="isSubmitting"
+                <button type="submit" [disabled]="isSubmitting" [ngClass]="{'invalid-submit': showValidationError}"
                     class="btn btn-xl custom-btn d-flex align-items-center text-center">
                     <i class="bi bi-send me-2" width="20" height="20" fill="green"></i>
                     {{isEdit ? 'Click to save changes' : 'Click to save details'}}
                 </button>
-
             </form>
         </div>
     </div>
