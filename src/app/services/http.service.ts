@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
     //private baseUrl = 'http://localhost:8080/shul/'; // local
-    private baseUrl = 'https://api.elcmembers.online/shul/'; // production
+    private baseUrl = 'https://api.elcmembers.net/shul/'; // production
 
-    private client = "https://elcmembers.online";
+    private client = "https://elcmembers.net";
     //private client = "http://localhost:4200";
 
     supporterLink = `${this.client}/invite-supporter`;
