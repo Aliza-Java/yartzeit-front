@@ -12,10 +12,10 @@ export const routes: Routes = [
 
     //these paths specify that sidebar should not be shown (even if admin went through them)
     { path: 'invite-member', component: AddMemberComponent, data: { title: 'Member Details', type: 'member' } },
-    { path: 'invite-supporter', component: AddMemberComponent, data: { title: 'Supporter Details', type: 'supporter' } },
+    { path: 'invite-supporter', component: AddMemberComponent, data: { title: 'Family Yartzeit Information', type: 'supporter' } },
 
     { path: 'add-member', component: AddMemberComponent, data: { title: 'Member Details', type: 'member' } },
-    { path: 'add-supporter', component: AddMemberComponent, data: { title: 'Supporter Details', type: 'supporter' } },
+    { path: 'add-supporter', component: AddMemberComponent, data: { title: 'Family Yartzeit Information', type: 'supporter' } },
 
     { path: 'details-mem', component: MembersListComponent, data: { title: 'Member Details', type: 'member' } },
     { path: 'details-sup', component: MembersListComponent, data: { title: 'Supporter Details', type: 'supporter' } },
