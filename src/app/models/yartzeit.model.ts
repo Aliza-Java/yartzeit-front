@@ -5,4 +5,5 @@ export interface Yartzeit {
   date: Hdate;
   name: string;
   relationship: string;
+  type?: 'member' | 'supporter';
 }

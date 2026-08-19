@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, Input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Member } from '../../models/member.model';
@@ -23,13 +23,17 @@ import { ShulService } from '../../services/shul.service';
 export class AddMemberComponent implements OnInit {
 
     @Input() member?: Member;
-
+    title = '';
+    type: 'member' | 'supporter' = 'member';
     isEdit: boolean = false;
-    thereIsSecondAdult = signal(false);
+    //thereIsSecondAdult = signal(false);
 
     memberForm: FormGroup = new FormGroup({});
     yartzeits: Yartzeit[] = [];
     addingYartzeit: boolean = false;
+    isSubmitting = false;
+    submitted: boolean = false;
+    showValidationError: boolean = false;
 
     private fb = inject(FormBuilder);
     private httpService = inject(HttpService);
@@ -47,12 +51,23 @@ export class AddMemberComponent implements OnInit {
             }
         });
 
+        this.route.data.subscribe(data => {
+            this.title = data['title'];
+            this.type = data['type'];
+        });
+
+        this.memberForm.valueChanges.subscribe(() => {
+            if (this.memberForm.valid) {
+                this.showValidationError = false;
+            }
+        });
+
         this.memberForm = this.fb.group({
             gender: ['MALE'],
-            firstName: [''],
-            lastName: [''],
-            phone: [''],
-            email: [''],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            phone: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             hebrewName: [''],
             fatherName: [''],
             motherName: [''],
@@ -74,7 +89,7 @@ export class AddMemberComponent implements OnInit {
                 month: new FormControl(""),
                 engDate: new FormControl(null)
             }),
-            relative: this.fb.group({
+            /* relative: this.fb.group({
                 gender: ['MALE'],
                 firstName: [''],
                 lastName: [''],
@@ -101,6 +116,7 @@ export class AddMemberComponent implements OnInit {
                     engDate: new FormControl(null)
                 }),
             }), //In the form it says second adult
+ */
             yartzeits: [[]] // Start with empty list
         });
 
@@ -108,9 +124,9 @@ export class AddMemberComponent implements OnInit {
         if (member) {
             this.memberForm.patchValue(member);
             this.yartzeits = member.yartzeits || [];
-            if (member.relative) {
-                this.thereIsSecondAdult.set(true);
-            }
+            // if (member.relative) {
+            //     this.thereIsSecondAdult.set(true);
+            // }
         }
 
         //detectChanges() might be necessary for child components to update upon recieving edited member's details
@@ -123,6 +139,10 @@ export class AddMemberComponent implements OnInit {
 
     onYartzeitAdded(y: Yartzeit) {
         this.yartzeits.push(y);
+        this.addingYartzeit = false;
+    }
+
+    onCloseYartzeit() {
         this.addingYartzeit = false;
     }
 
@@ -204,11 +224,28 @@ export class AddMemberComponent implements OnInit {
         this.memberForm.patchValue({ relative: { bmparasha: parasha } });
     }
 
-    toggleRelative() {
-        this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
-    }
+    // toggleRelative() {
+    //     this.thereIsSecondAdult.set(!this.thereIsSecondAdult());
+    // }
 
     onSubmit() {
+        if (this.isSubmitting)
+            return;
+
+        this.submitted = true;
+
+        if (!this.checkIfFormValid()) {
+            this.showValidationError = true;
+            this.memberForm.markAllAsTouched();
+
+            const firstInvalid = document.querySelector('.ng-invalid');
+            firstInvalid?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        this.showValidationError = false;
+
+        this.isSubmitting = true;
         const member: Member = this.memberForm.value;
         member.id = this.shulService.selectedMember()?.id || 0; //keep the same id when editing
         member.yartzeits = this.yartzeits;
@@ -220,23 +257,69 @@ export class AddMemberComponent implements OnInit {
         if (member.relative && member.relative.gender == 'FEMALE') {
             member.relative.bmparasha = '';
         }
-        if (!this.thereIsSecondAdult()) {
-            member.relative = null;
+        // if (!this.thereIsSecondAdult()) {
+        //     member.relative = null;
+        // }
+
+        if (this.type == 'supporter') {
+            this.httpService.saveSupporter(member, this.isEdit)
+                .subscribe({
+                    next: (response) => {
+                        console.log(this.isEdit ? 'Supporter edited successfully' : 'Supporter added successfully', response);
+                        this.shulService.clearSelectedMember();
+                        this.router.navigate(['/success/supporter']);
+
+                    },
+                    error: (err) => {
+                        var errorMessage: string = this.isEdit ? 'Error editing supporter' : 'Error adding supporter';
+                        console.error(errorMessage, err);
+                        this.router.navigate(['/error'], { queryParams: { text: errorMessage } });
+                    }
+                });
+        } else {
+
+            this.httpService.saveMember(member, this.isEdit)
+                .subscribe({
+                    next: (response) => {
+                        console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
+                        this.shulService.clearSelectedMember();
+                        this.router.navigate(['/success/member']);
+
+                    },
+                    error: (err) => {
+                        var errorMessage: string = this.isEdit ? 'Error editing member' : 'Error adding member';
+                        console.error(errorMessage, err);
+                        this.router.navigate(['/error'], { queryParams: { text: errorMessage } });
+                    }
+                });
+        }
+    }
+
+    checkIfFormValid(): boolean {
+        if (this.memberForm.get('bmparasha')?.value && this.memberForm.get('hebrewName')?.value.trim() == '') {
+            this.memberForm.get('hebrewName')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('hebrewName')?.setErrors(null);
         }
 
-        this.httpService.saveMember(member, this.isEdit)
-            .subscribe({
-                next: (response) => {
-                    console.log(this.isEdit ? 'Member edited successfully' : 'Member added successfully', response);
-                    this.shulService.clearSelectedMember();
-                    this.router.navigate(['/success']);
+        if (this.memberForm.get('bmparasha')?.value && this.memberForm.get('fatherName')?.value.trim() == '') {
+            this.memberForm.get('fatherName')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('fatherName')?.setErrors(null);
+        }
 
-                },
-                error: (err) => {
-                    console.error(this.isEdit ? 'Error editing member' : 'Error adding member', err);
-                    this.router.navigate(['/error']);
-                }
-            });
+        if (this.memberForm.get('anniversary.day')?.value > 0
+            && this.memberForm.get('anniversary.month')?.value != ''
+            && this.memberForm.get('spouse')?.value.trim() == '') {
+            this.memberForm.get('spouse')?.setErrors({ required: true });
+        }
+        else {
+            this.memberForm.get('spouse')?.setErrors(null);
+        }
+
+        return this.memberForm.valid;
     }
 
     get dobDayValue() {

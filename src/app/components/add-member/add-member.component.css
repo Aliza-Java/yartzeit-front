@@ -4,6 +4,25 @@ h3 {
     margin-top: 30px;
 }
 
+.required-input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+
+button.invalid-submit {
+    border: 3px solid var(--alert);
+    box-shadow: 0 0 6px rgba(255, 92, 92, 0.4);
+    background-color: var(--misty-rose-dark);
+    color: var(--secondary-green);
+}
+
+.form-control {
+    margin-bottom: 0.25rem;
+    /* small gap between input and error */
+}
+
 .text-start {
     justify-content: flex-start !important;
 }
@@ -16,11 +35,16 @@ form {
     align-items: center;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-.btn-add-second {
-    margin: 0px; 
+.btn-add-ytz {
+    margin: 0px;
     margin-bottom: 20px;
-    width: 100%; 
+    width: 100%;
     text-align: center;
     justify-content: center;
 }
@@ -124,6 +148,17 @@ app-yartzeit {
     margin: 20px 0;
 }
 
+.error {
+    color: var(--alert);
+    font-size: 0.9rem;
+    border-width: 3px;
+    padding-left: 5px;
+}
+
+input.ng-invalid.ng-touched {
+    border-color: var(--alert);
+}
+
 @media (max-width: 576px) {
 
     /* small screens (Bootstrap sm breakpoint) */
@@ -158,8 +193,8 @@ app-yartzeit {
     }
 
     .big-section {
-    padding: 15px;
-}
+        padding: 15px;
+    }
 }
 
 .loading-overlay {
@@ -189,6 +224,29 @@ app-yartzeit {
 
 table {
     width: 100%;
+    border-bottom-width: none;
+    border-radius: 6px;
+}
+
+/* Round the outer corners only */
+.table thead tr:first-child th:first-child {
+    border-top-left-radius: 6px;
+}
+
+.table thead tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+td {
+    border-bottom-width: 0px;
 }
 
 .form-container {
@@ -198,7 +256,13 @@ table {
     width: 100%;
     width: 500px;
     max-width: 100%;
-    margin: 0 auto; 
+    margin: 0 auto;
+}
+
+.hebrew-name {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 576px) {

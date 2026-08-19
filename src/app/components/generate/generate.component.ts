@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ShulService } from '../../services/shul.service';
 
 @Component({
     selector: 'app-generate',
@@ -12,31 +12,35 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./generate.component.css']
 })
 export class GenerateComponent {
-    generatedLink: string | null = null;
-    copied: boolean = false;
+    memberLink: string | "" = "";
+    supporterLink: string | "" = "";
+    memberCopied: boolean = false;
+    supporterCopied: boolean = false;
 
-    constructor(private httpService: HttpService, private router: Router) { }
-
-    generate() {
-        this.httpService.generateLink()
-            .subscribe({
-                next: (res) => {
-                    // success
-                    this.generatedLink = res;
-                },
-                error: (err) => {
-                    // handle error: navigate to error page
-                    this.router.navigate(['error'], { queryParams: { text: 'we were unable to generate a link' } });
-                }
-            });
-        this.copied = false;
+    constructor(private httpService: HttpService, private shulService: ShulService) {
+                this.shulService.isAdmin = true;
     }
 
-    copyToClipboard() {
-        if (this.generatedLink) {
-            navigator.clipboard.writeText(this.generatedLink).then(() => {
-                this.copied = true;
-                setTimeout(() => (this.copied = false), 2000);
+    getMemberLink() {
+        this.memberLink = this.httpService.memberLink;
+        this.memberCopied = false;
+    }
+    
+    getSupporterLink() {
+        this.supporterLink = this.httpService.supporterLink;
+        this.supporterCopied = false;
+    }
+
+    copyToClipboard(type: string) {
+        if (type === 'member') {
+            navigator.clipboard.writeText(this.memberLink).then(() => {
+                this.memberCopied = true;
+                setTimeout(() => (this.memberCopied = false), 2000);
+            });
+        } else {
+            navigator.clipboard.writeText(this.supporterLink).then(() => {
+                this.supporterCopied = true;
+                setTimeout(() => (this.supporterCopied = false), 2000);
             });
         }
     }

@@ -2,19 +2,51 @@
     <!-- Sidebar -->
     <nav class="sidebar" *ngIf="showSidebar && sidebarReady">
         <ul>
-            <li><a routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
-            <li><a routerLink="/member" routerLinkActive="active">Add Member</a></li>
-            <li><a routerLink="/list" routerLinkActive="active">Members List</a></li>
-            <li><a routerLink="/print" routerLinkActive="active">Print Dates</a></li>
+            <li><a (click)="closeAllSubmenus()" class="main-menu-item" routerLink="/generate" routerLinkActive="active">Generate Link</a></li>
+
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
+                    <summary class="submenu-summary">Submit New</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="/add-member">Member</a></li>
+                        <li class="submenu-item"><a routerLink="/add-supporter">Supporter</a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
+                    <summary class="submenu-summary">List All</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="/details-mem">Members</a></li>
+                        <li class="submenu-item"><a routerLink="/details-sup">Supporters</a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
+            <li class="nav-submenu" routerLinkActive="active">
+                <details (toggle)="onToggle($event)">
+                    <summary class="submenu-summary">Print Dates</summary>
+                    <ul class="submenu-list">
+                        <li class="submenu-item"><a routerLink="print-yartzeits">Yartzeits</a></li>
+                        <li class="submenu-item"><a routerLink="print-ann">Anniversaries</a></li>
+                        <li class="submenu-item"><a routerLink="print-parashot">Bar-Mitzva
+                                Parashot</a></li>
+                        <!-- <li class="submenu-item"><a routerLink="combined" routerLinkActive="active">Combined</a></li> -->
+                    </ul>
+                </details>
+            </li>
+
         </ul>
-        <!--<div class="version-note">sep20</div>-->
     </nav>
 
     <!-- Main Content -->
     <main class="content">
         <router-outlet></router-outlet>
         <ngx-spinner class="local-spinner" bdColor="rgba(255,255,255,0.3)" size="large" color="#97c48e"
-            type="ball-spin-clockwise-fade-rotating" [fullScreen]="false">
+            type="ball-spin-clockwise-fade-rotating" [fullScreen]="true">
         </ngx-spinner>
     </main>
 </div>

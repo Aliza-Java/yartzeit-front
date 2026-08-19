@@ -4,7 +4,7 @@
 }
 
 .sidebar {
-    width: 200px;
+    width: 240px;
     background: var(--secondary-green);
     color: white;
     padding: 1rem;
@@ -19,56 +19,146 @@
     margin: 1rem 0;
 }
 
+.submenu-item {
+    background-color: var(--main-green);
+    border-radius: 4px;
+    text-align: left;
+    padding: 0.5rem;
+}
+
 .sidebar a {
     color: white;
     text-decoration: none;
 }
 
-.sidebar a.active {
-    font-weight: bold;
+.nav-submenu.active>details>.submenu-summary,
+.main-menu-item.active {
+    font-weight: 600;
     border-left: 4px solid var(--misty-rose-light);
-    padding-left: 8px;
+}
+
+/* slightly larger main menu text */
+.sidebar a.main-menu-item,
+.sidebar .submenu-summary {
+    display: block;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.submenu-list {
+    margin-left: 2rem;
+    flex-direction: column;
 }
 
 .content {
     flex-grow: 1;
-    padding: 2rem;
-    background: #F5F5F5;
-    /*always, regardless of screen size*/
     flex: 1;
+    background: var(--faded-gray-bg);
     overflow-y: auto;
-    /* scroll only content */
-    padding: 1rem;
     position: relative;
 }
 
 .spinner-text {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 20px;
     color: white;
     font-weight: bold;
+    z-index: 10000;
 }
 
 .local-spinner .ngx-spinner-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
 }
 
-/* 🔽 Mobile layout adjustments */
+.version-note {
+    margin-top: auto;
+    font-size: 0.8rem;
+    color: var(--main-green);
+    text-align: center;
+    padding: 8px 0;
+    opacity: 0.7;
+}
+
+/* submenu in sidebar */
+.nav-submenu {
+    align-self: flex-start;
+}
+
+.nav-submenu details {
+    width: fit-content;
+}
+
+.submenu-summary, .main-menu-item {
+    list-style: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    color: inherit;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* hide default disclosure arrow and add custom caret */
+.submenu-summary::-webkit-details-marker {
+    display: none;
+}
+
+.submenu-summary::after {
+    content: "▸";
+    transform: rotate(0deg);
+    display: inline-block;
+    transition: transform .18s ease;
+    opacity: .8;
+}
+
+details[open] .submenu-summary::after {
+    transform: rotate(90deg) !important;
+}
+
+/* sub-list hidden by default, shown when details open */
+.sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+}
+
+nav .nav-submenu details[open] .sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-left: 0.5rem;
+}
+
+
+/* 🔽 Responsive: 768px */
 @media (max-width: 768px) {
     .app-container {
         flex-direction: column;
-        /* stack vertically */
+    }
+
+    .sidebar>ul>li {
+        flex: 1 1 0;
+        min-width: 0;
+        /* crucial: allow content to shrink below its intrinsic width */
+        box-sizing: border-box;
     }
 
     .sidebar {
@@ -76,44 +166,126 @@
         padding: 0.5rem;
     }
 
-    .sidebar ul {
+    .sidebar>ul {
         display: flex;
-        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    /* let long summaries/links wrap instead of expanding the menu */
+    .submenu-summary,
+    .main-menu-item,
+    .sidebar a {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        min-width: 0;
+    }
+
+    /* stack submenu items vertically on small screens */
+    ul.submenu-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.25rem;
+    }
+
+    /* prevent details fit-content from forcing overflow on mobile */
+    .nav-submenu details,
+    .nav-submenu details[open] {
+        width: 100%;
+    }
+
+    .nav-submenu details[open] {
+        position: relative;
+    }
+
+    ul.submenu-list {
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .submenu-list {
+        align-items: flex-start;
+        /* left align children */
+        justify-content: flex-start;
+        margin-left: 0px;
     }
 
     .sidebar li {
         margin: 0;
-        /* remove vertical spacing */
+    }
+
+    li>a {
+        /* only a's that are direct decendents of li */
+        text-align: left;
     }
 
     .sidebar a {
         text-align: center;
         display: block;
-        padding: 0.5rem 1rem;
         border-left: none;
-        /* remove left border on mobile */
     }
 
-    .sidebar a.active {
+    .nav-submenu.active>details>.submenu-summary,
+    .main-menu-item.active {
+        font-weight: bold;
         border-bottom: 3px solid var(--misty-rose-light);
         border-left: none;
-        /* underline active link */
-        font-weight: bold;
     }
 
-    .content {
-        padding: 0px;
+    /* ensure submenu items stack vertically under the main menu when sidebar moves on top */
+    nav .nav-submenu,
+    nav .nav-submenu details[open] {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding-left: 0;
+        width: 100%;
+        align-items: flex-start;
+        /* left align children */
+        justify-content: flex-start;
     }
 
     .version-note {
         display: none;
-    }             /* Optional: make it a bit faded */
+    }
+
+    .submenu-summary,
+    .main-menu-item {
+        margin: 0px;
+    }
+
+    .main-menu-item {
+        text-align: left !important;
+    }
 }
-.version-note {
-    margin-top: auto;           /* Pushes to the bottom */
-    font-size: 0.8rem;          /* Small text */
-    color: var(--main-green);               /* White color */
-    text-align: center;
-    padding: 8px 0;
-    opacity: 0.7;  
+
+/* 🔽 Responsive: 576px */
+@media (max-width: 576px) {
+
+    /* keep submenu vertical on extra-small screens as well */
+    nav .nav-submenu details[open] .sub-list {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-left: 0;
+        flex-wrap: nowrap;
+    }
+
+    .sub-list a {
+        padding: 0.35rem 0.6rem;
+    }
+
+    .sidebar a.main-menu-item,
+    .sidebar .submenu-summary {
+        font-size: 1rem;
+        color: #fff;
+        margin: 0px;
+    }
+
+    .submenu-item {
+        padding: 0.35rem 0.6rem;
+    }
 }

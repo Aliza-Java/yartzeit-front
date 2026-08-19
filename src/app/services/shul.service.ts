@@ -24,7 +24,7 @@ export class ShulService {
 
     selectedMember = signal<Member | null>(null);
 
-    isGuest: boolean = false;
+    isAdmin: boolean = false;
 
   setSelectedMember(member: Member) {
     this.selectedMember.set(member);

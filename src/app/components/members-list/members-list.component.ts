@@ -4,7 +4,7 @@ import { Member } from '../../models/member.model';
 import { HttpService } from '../../services/http.service';
 import { finalize } from 'rxjs';
 import { ShulService } from '../../services/shul.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-members-list',
@@ -14,32 +14,61 @@ import { Router } from '@angular/router';
     styleUrl: './members-list.component.css'
 })
 export class MembersListComponent implements OnInit {
+
+    title: string = 'Member Details';
+
+    type: 'member' | 'supporter' = 'member';
     members: Member[] = [];
     isLoading = signal(false);
 
-    constructor(private httpService: HttpService, private shulService:ShulService, private router:Router) { }
+    constructor(private httpService: HttpService, private shulService: ShulService, private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.loadMembers();
+        this.route.data.subscribe(data => {
+            this.title = data['title'];
+            this.type = data['type'];
+            this.loadMembers();
+        });
     }
 
     loadMembers() {
         this.isLoading.set(true);
-        this.httpService.getMembers().pipe(
-            finalize(() => this.isLoading.set(false))
-        ).subscribe({
-            next: (data: Member[]) => {
-                this.members = data;
-            },
-            error: (err) => {
-                console.error('Error loading members:', err);
-            }
-        });
+
+        if (this.type === 'supporter') {
+            this.httpService.getSupporters().pipe(
+                finalize(() => this.isLoading.set(false))
+            ).subscribe({
+                next: (data: Member[]) => {
+                    this.members = data;
+                },
+                error: (err) => {
+                    console.error('Error loading members:', err);
+                }
+            });
+        }
+        else { //type === 'member'
+            this.httpService.getMembers().pipe(
+                finalize(() => this.isLoading.set(false))
+            ).subscribe({
+                next: (data: Member[]) => {
+                    this.members = data;
+                },
+                error: (err) => {
+                    console.error('Error loading supporters:', err);
+                }
+            });
+        }
     }
 
-editMember(member: Member) {
-  this.shulService.setSelectedMember(member);
-  this.router.navigate(['member'], { queryParams: { edit: true } });
-}    }
+    editMember(member: Member) {
+        this.shulService.setSelectedMember(member);
+        if (this.type === 'supporter') {
+            this.router.navigate(['add-supporter'], { queryParams: { edit: true } });
+        }
+        else {
+            this.router.navigate(['add-member'], { queryParams: { edit: true } });
+        }
+    }
+}
 
 

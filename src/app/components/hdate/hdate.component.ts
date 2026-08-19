@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { HDate } from 'hebcal';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShulService } from '../../services/shul.service';
 import { Hdate } from '../../models/hdate.model';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-hdate',
     templateUrl: './hdate.component.html',
     styleUrls: ['./hdate.component.css'],
     standalone: true,
-    imports: [NgbDatepickerModule, FormsModule]
+    imports: [NgbDatepickerModule, FormsModule, CommonModule]
 })
 export class HdateComponent {
     @Output() dateChange = new EventEmitter<Hdate>();
@@ -82,6 +83,7 @@ export class HdateComponent {
     }
 
     onMonthChange(newMonth: string) {
+        this.checkDateAlert = false;
         this.month = newMonth;
         this.emitCurrentDate();
     }
@@ -95,6 +97,7 @@ export class HdateComponent {
     }
 
     onDayChange(newDay: number) {
+        this.checkDateAlert = false;
         this.day = newDay;
         this.emitCurrentDate();
     }

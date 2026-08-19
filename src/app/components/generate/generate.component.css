@@ -2,13 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    /* full viewport height */
-    background: #f7f9fb;
+    max-width: 100%;
+    background: var(--faded-gray-bg);
+    gap: 2rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 }
 
 .card {
-    position: absolute;
     top: 20vh;
     background: white;
     padding: 2rem;

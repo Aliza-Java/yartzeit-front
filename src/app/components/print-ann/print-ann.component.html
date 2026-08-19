@@ -1,5 +1,20 @@
+<!-- Buttons -->
+<div class="buttons-line">
+    <div class="button-wrapper">
+        <button (click)="downloadPdf()" class="py-2 text-white rounded">
+            <i class="bi bi-file-earmark-pdf"></i> Download as PDF
+        </button>
+    </div>
+
+    <div class="button-wrapper">
+        <button (click)="downloadExcel()" class="py-2 text-white rounded">
+            <i class="bi bi-file-earmark-excel"></i> Download as Excel
+        </button>
+    </div>
+</div>
+
 <div class="table-wrapper" *ngIf="anniversaries?.length">
-    <table id="printTable" border="1" cellspacing="0" cellpadding="8">
+    <table id="ann-table" border="1" cellspacing="0" cellpadding="8">
         <thead>
             <tr>
                 <th class="title-head" colspan="2" style="text-align: center;">Anniversaries</th>
@@ -15,11 +30,4 @@
             </tr>
         </tbody>
     </table>
-</div>
-
-<!-- Button -->
-<div class="button-wrapper">
-    <button (click)="downloadPDF()" class="px-4 py-2 text-white rounded">
-        Download as PDF
-    </button>
 </div>

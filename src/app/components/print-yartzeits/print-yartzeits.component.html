@@ -1,13 +1,29 @@
+<!-- Buttons -->
+<div class="buttons-line">
+    <div class="button-wrapper">
+        <button (click)="downloadPdf()" class="py-2 text-white rounded">
+            <i class="bi bi-file-earmark-pdf"></i> Download as PDF
+        </button>
+    </div>
+
+    <div class="button-wrapper">
+        <button (click)="downloadExcel()" class="py-2 text-white rounded">
+            <i class="bi bi-file-earmark-excel"></i> Download as Excel
+        </button>
+    </div>
+</div>
+
 <div class="table-wrapper" *ngIf="yartzeits?.length">
-    <table id="printTable" border="1" cellspacing="0" cellpadding="8">
+    <table id="yartzeit-table" border="1" cellspacing="0" cellpadding="8">
         <thead>
             <tr>
-                <th class="title-head" colspan="3" style="text-align: center;">Yartzeits</th>
+                <th class="title-head" colspan="4" style="text-align: center;">Yartzeits</th>
             </tr>
             <tr>
                 <th>Date</th>
                 <th>Name</th>
                 <th>Relationship</th>
+                <th>Type</th>
             </tr>
         </thead>
         <tbody>
@@ -15,14 +31,8 @@
                 <td>{{y.day}} {{y.month}}</td>
                 <td>{{y.yname}}</td>
                 <td>{{y.firstName}} {{y.lastName}}'s {{y.relationship}}</td>
+                <td>{{y.type}}</td>
             </tr>
         </tbody>
     </table>
-</div>
-
-<!-- Button -->
-<div class="button-wrapper">
-    <button (click)="downloadPDF()" class="px-4 py-2 text-white rounded">
-        Download as PDF
-    </button>
 </div>

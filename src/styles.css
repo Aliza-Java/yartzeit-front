@@ -4,15 +4,16 @@
     --secondary-green: #217239;
     --very-light-green: #DAEAD7;
     --extremely-light-green: #ECF4EB;
-    --alert: #a4243b;
+    --alert: #D32F2F;
     --misty-rose-light: #FFE2D6;
     --darker-than-rose: #F2C8BA;
     /* pale dogwood */
+    --faded-gray-bg: #f7f9fb;
 }
 
 .section {
     margin-top: 35px;
-    gap: 15px;
+    gap: 1rem;
 }
 
 .date-section {

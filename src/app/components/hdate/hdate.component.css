@@ -16,6 +16,7 @@
     align-items: center;
     gap: 8px;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .english-date-group {
@@ -54,11 +55,14 @@
 }
 
 .helper-text {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     color: #666;
     text-align: center;
     margin-bottom: 10px;
-    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 .divider {
@@ -165,3 +169,12 @@
     flex: none;
     font-weight: bold;
 }
+
+.check-date-alert {
+    color: var(--alert);
+    padding: 2px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    ;}

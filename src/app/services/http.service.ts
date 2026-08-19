@@ -7,19 +7,36 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
     //private baseUrl = 'http://localhost:8080/shul/'; // local
-    private baseUrl = 'https://api.elcmembers.online/shul/'; // production
+    private baseUrl = 'https://api.elcmembers.net/shul/'; // production
+
+    private client = "https://elcmembers.net";
+    //private client = "http://localhost:4200";
+
+    supporterLink = `${this.client}/invite-supporter`;
+    memberLink = `${this.client}/invite-member`;
 
     constructor(private http: HttpClient) { }
 
     saveMember(member: any, editing: boolean): Observable<any> {
         if (editing)
-            return this.http.put(`${this.baseUrl}member`, member, { withCredentials: true });
+            return this.http.put(`${this.baseUrl}member/mem`, member, { withCredentials: true });
         else
-            return this.http.post(`${this.baseUrl}member`, member, { withCredentials: true });
+            return this.http.post(`${this.baseUrl}member/mem`, member, { withCredentials: true });
+    }
+
+    saveSupporter(member: any, editing: boolean): Observable<any> {
+        if (editing)
+            return this.http.put(`${this.baseUrl}member/sup`, member, { withCredentials: true });
+        else
+            return this.http.post(`${this.baseUrl}member/sup`, member, { withCredentials: true });
     }
 
     getMembers(): Observable<any> {
-        return this.http.get(this.baseUrl + 'member');
+        return this.http.get(this.baseUrl + 'member/mem');
+    }
+
+    getSupporters(): Observable<any> {
+        return this.http.get(this.baseUrl + 'member/sup');
     }
 
     generateLink(): Observable<any> {
